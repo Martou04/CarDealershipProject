@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarDealershipSystem.Common\CarDealershipSystem.Common.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Data.Models\CarDealershipSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Data\CarDealershipSystem.Data.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Web.ViewModels\CarDealershipSystem.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

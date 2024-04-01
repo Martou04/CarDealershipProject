@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-CarDealershipSystem.Web-8c54bc65-1da4-4dc9-9040-dbb8468a24ea</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="appsettings.Production.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.Production.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.23" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarDealershipSystem.Common\CarDealershipSystem.Common.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Data.Models\CarDealershipSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Data\CarDealershipSystem.Data.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Services.Data\CarDealershipSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Web.Infrastructure\CarDealershipSystem.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Web.ViewModels\CarDealershipSystem.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
