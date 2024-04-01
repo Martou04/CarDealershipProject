@@ -1,0 +1,91 @@
+﻿@model CarFormModel
+
+@{
+    string carExtraType;
+}
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Make"></label>
+                <input asp-for="Make" class="form-control" placeholder="BMW, Mercedes, Audi, etc..." />
+                <span asp-validation-for="Make" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" class="form-control" placeholder="M5, S-Class, RSQ8, etc..." />
+                <span asp-validation-for="Model" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control"
+                          placeholder="This is the perfect car..."></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId" class="form-control">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FuelTypeId"></label>
+                <select asp-for="FuelTypeId" class="form-control">
+                    @foreach (var fuelType in Model.FuelTypes)
+                    {
+                        <option value="fuelType.Id">@fuelType.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransmissionTypeId"></label>
+                <select asp-for="TransmissionTypeId" class="form-control">
+                    @foreach (var transmissionType in Model.TransmissionTypes)
+                    {
+                        <option value="transmissionType.Id">@transmissionType.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year"></label>
+                <input asp-for="Year" class="form-control" placeholder="2022, 2014, 2023, etc..." />
+                <span asp-validation-for="Year" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kilometers"></label>
+                <input asp-for="Kilometers" class="form-control" />
+                <span asp-validation-for="Kilometers" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Horsepower"></label>
+                <input asp-for="Horsepower" class="form-control" />
+                <span asp-validation-for="Horsepower" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="small text-danger"></span>
+            </div>
+            <h5 class="mb-1 text-center">Car extras:</h5>
+            <div class="form-check-inline mb-2">
+                @foreach(var extra in Model.CarExtras)
+                {
+                    <input class="form-check-input" type="checkbox" id="@extra.Id" value="@extra.Id">
+                    <label class="form-check-label" for="inlineCheckbox2">@extra.ExtraName</label>
+                }
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

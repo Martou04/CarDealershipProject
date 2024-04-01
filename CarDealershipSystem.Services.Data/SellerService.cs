@@ -1,5 +1,6 @@
-﻿
-namespace CarDealershipSystem.Services.Data.Interfaces
+﻿using CarDealershipSystem.Services.Data.Interfaces;
+
+namespace CarDealershipSystem.Services.Data
 {
     using CarDealershipSystem.Data.Models;
     using CarDealershipSystem.Web.ViewModels.Seller;
@@ -15,9 +16,9 @@ namespace CarDealershipSystem.Services.Data.Interfaces
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> SellerExistsByIdAsync(string userId)
+        public async Task<bool> SellerExistsByUserIdAsync(string userId)
         {
-            bool result = await this.dbContext
+            bool result = await dbContext
                 .Seller
                 .AnyAsync(s => s.UserId.ToString() == userId);
 
@@ -26,7 +27,7 @@ namespace CarDealershipSystem.Services.Data.Interfaces
 
         public async Task<bool> SellerExistsByPhoneNumberAsync(string phoneNumber)
         {
-            bool result = await this.dbContext
+            bool result = await dbContext
                 .Seller
                 .AnyAsync(s => s.PhoneNumber == phoneNumber);
 
@@ -43,8 +44,8 @@ namespace CarDealershipSystem.Services.Data.Interfaces
                 PhoneNumber = formModel.PhoneNumber,
             };
 
-            await this.dbContext.Seller.AddAsync(newSeller);
-            await this.dbContext.SaveChangesAsync();
+            await dbContext.Seller.AddAsync(newSeller);
+            await dbContext.SaveChangesAsync();
         }
 
     }

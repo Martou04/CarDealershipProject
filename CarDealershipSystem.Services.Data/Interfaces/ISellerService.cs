@@ -5,7 +5,7 @@ namespace CarDealershipSystem.Services.Data.Interfaces
 
     public interface ISellerService
     {
-        Task<bool> SellerExistsByIdAsync(string userId);
+        Task<bool> SellerExistsByUserIdAsync(string userId);
 
         Task<bool> SellerExistsByPhoneNumberAsync(string phoneNumber);
 

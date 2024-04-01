@@ -23,7 +23,7 @@
         public async Task<IActionResult> Become()
         {
             string? userId = this.User.GetId();
-            bool isSeller = await sellerService.SellerExistsByIdAsync(userId!);
+            bool isSeller = await sellerService.SellerExistsByUserIdAsync(userId!);
             if(isSeller)
             {
                 this.TempData[ErrorMessage] = "You are already a seller!";
@@ -38,7 +38,7 @@
         public async Task<IActionResult> Become(BecomeSellerFormModel formModel)
         {
             string? userId = User.GetId();
-            bool isSeller = await sellerService.SellerExistsByIdAsync(userId!);
+            bool isSeller = await sellerService.SellerExistsByUserIdAsync(userId!);
             if(isSeller)
             {
                 this.TempData[ErrorMessage] = "You are already a seller!";
