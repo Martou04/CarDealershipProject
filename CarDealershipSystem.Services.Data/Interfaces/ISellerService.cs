@@ -10,5 +10,7 @@ namespace CarDealershipSystem.Services.Data.Interfaces
         Task<bool> SellerExistsByPhoneNumberAsync(string phoneNumber);
 
         Task Create(string userId, BecomeSellerFormModel formModel);
+
+        Task<string?> GetSellerIdByUserIdAsync(string userId);
     }
 }

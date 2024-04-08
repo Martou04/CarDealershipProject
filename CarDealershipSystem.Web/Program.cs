@@ -8,6 +8,7 @@ namespace CarDealershipSystem.Web
     using CarDealershipSystem.Data.Models;
     using CarDealershipSystem.Web.Infrastructure.Extensions;
     using CarDealershipSystem.Services.Data.Interfaces;
+    using CarDealershipSystem.Web.Infrastructure.ModelBinders;
 
     public class Program
     {
@@ -19,8 +20,11 @@ namespace CarDealershipSystem.Web
                 builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services
-                .AddDbContext<CarDealershipDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                .AddDbContext<CarDealershipDbContext>(options => 
+                {
+                    options.UseSqlServer(connectionString);
+                    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                });
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
@@ -40,7 +44,12 @@ namespace CarDealershipSystem.Web
 
             builder.Services.AddApplicationServices(typeof(ICarService));
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(options => 
+                {
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                });
 
             WebApplication app = builder.Build();
 

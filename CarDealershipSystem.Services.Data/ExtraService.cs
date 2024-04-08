@@ -19,15 +19,17 @@ namespace CarDealershipSystem.Services.Data
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<CarSelectExtrasFormModel>> AllExtrasAsync()
+        public async Task<IEnumerable<CarExtrasViewModel>> AllExtrasAndTypesAsync()
         {
-            IEnumerable<CarSelectExtrasFormModel> allExtras = await this.dbContext
+            IEnumerable<CarExtrasViewModel> allExtras = await this.dbContext
                 .Extra
                 .AsNoTracking()
-                .Select(e => new CarSelectExtrasFormModel
+                .Select(e => new CarExtrasViewModel
                 {
-                    ExtraName = e.Name,
-                    ExtraType = e.Type.Name
+                    Id = e.Id,
+                    Name = e.Name,
+                    TypeId = e.TypeId,
+                    TypeName = e.Type.Name
                 })
                 .ToArrayAsync();
 

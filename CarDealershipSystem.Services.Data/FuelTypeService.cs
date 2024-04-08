@@ -19,7 +19,6 @@
         {
             IEnumerable<CarSelectFuelTypeFormModel> allFuelTypes = await this.dbContext
                 .FuelTypes
-                .AsNoTracking()
                 .Select(ft => new CarSelectFuelTypeFormModel 
                 { 
                     Id = ft.Id,
@@ -28,6 +27,15 @@
                 .ToArrayAsync();
 
             return allFuelTypes;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int Id)
+        {
+            bool result = await this.dbContext
+                .FuelTypes
+                .AnyAsync(ft => ft.Id == Id);
+
+            return result;
         }
     }
 }

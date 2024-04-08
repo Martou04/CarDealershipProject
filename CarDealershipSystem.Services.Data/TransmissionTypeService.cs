@@ -21,7 +21,6 @@ namespace CarDealershipSystem.Services.Data
         {
             IEnumerable<CarSelectTransmissionTypeFormModel> allTransmissionTypes = await this.dbContext
                 .TransmissionTypes
-                .AsNoTracking()
                 .Select(tt => new CarSelectTransmissionTypeFormModel
                 {
                     Id = tt.Id,
@@ -30,6 +29,15 @@ namespace CarDealershipSystem.Services.Data
                 .ToArrayAsync();
 
             return allTransmissionTypes;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int Id)
+        {
+            bool result = await this.dbContext
+                .TransmissionTypes
+                .AnyAsync(tt => tt.Id == Id);
+
+            return result;
         }
     }
 }

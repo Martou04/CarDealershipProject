@@ -14,7 +14,8 @@ namespace CarDealershipSystem.Web.ViewModels.Car
             this.Categories = new HashSet<CarSelectCategoryFormModel>();
             this.FuelTypes = new HashSet<CarSelectFuelTypeFormModel>();
             this.TransmissionTypes = new HashSet<CarSelectTransmissionTypeFormModel>();
-            this.CarExtras = new HashSet<CarSelectExtrasFormModel>();
+            this.CarExtras = new HashSet<CarExtrasViewModel>();
+            this.SelectedExtrasIds = new HashSet<Guid>();
         }
 
         [Required]
@@ -60,6 +61,8 @@ namespace CarDealershipSystem.Web.ViewModels.Car
 
         [Display(Name = "Extras:")]
         public int CarExtraId { get; set; }
-        public IEnumerable<CarSelectExtrasFormModel> CarExtras { get; set; }
+        public IEnumerable<CarExtrasViewModel> CarExtras { get; set; }
+
+        public IEnumerable<Guid> SelectedExtrasIds { get; set; }
     }
 }

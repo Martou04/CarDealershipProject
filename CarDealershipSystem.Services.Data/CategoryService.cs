@@ -19,7 +19,6 @@
         {
             IEnumerable<CarSelectCategoryFormModel> allCategories = await this.dbContext
                 .Categories
-                .AsNoTracking()
                 .Select(c => new CarSelectCategoryFormModel
                 {
                     Id = c.Id,
@@ -28,6 +27,15 @@
                 .ToArrayAsync();
 
             return allCategories;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            bool result = await this.dbContext
+                .Categories
+                .AnyAsync(c => c.Id == id);
+
+            return result;
         }
     }
 }

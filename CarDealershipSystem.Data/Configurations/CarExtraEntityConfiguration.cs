@@ -15,9 +15,9 @@ namespace CarDealershipSystem.Data.Configurations
 
             builder
                 .HasOne(ce => ce.Car)
-                .WithMany(e => e.CarExtras)
-                .HasForeignKey(ce =>  ce.ExtraId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .WithMany(c => c.CarExtras)
+                .HasForeignKey(ce => ce.CarId)  
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
