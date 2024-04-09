@@ -10,6 +10,7 @@
     <ProjectReference Include="..\CarDealershipSystem.Common\CarDealershipSystem.Common.csproj" />
     <ProjectReference Include="..\CarDealershipSystem.Data.Models\CarDealershipSystem.Data.Models.csproj" />
     <ProjectReference Include="..\CarDealershipSystem.Data\CarDealershipSystem.Data.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Services.Data.Models\CarDealershipSystem.Services.Data.Models.csproj" />
     <ProjectReference Include="..\CarDealershipSystem.Web.ViewModels\CarDealershipSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 

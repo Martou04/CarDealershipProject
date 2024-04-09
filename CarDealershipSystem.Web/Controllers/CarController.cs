@@ -2,6 +2,7 @@
 {
     using CarDealershipSystem.Data.Models;
     using CarDealershipSystem.Services.Data.Interfaces;
+    using CarDealershipSystem.Services.Data.Models.Car;
     using CarDealershipSystem.Web.Infrastructure.Extensions;
     using CarDealershipSystem.Web.ViewModels.Car;
     using CarDealershipSystem.Web.ViewModels.CarExtra;
@@ -32,10 +33,18 @@
             this.extraService = extraService;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllCarsQueryModel queryModel)
         {
-            return View();
+            AllCarsFilteredAndPagedServiceModel serviceModel = 
+                await this.carService.AllAsync(queryModel);
+
+            queryModel.Cars = serviceModel.Cars;
+            queryModel.TotalCars = serviceModel.TotalCarsCount;
+            queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
+
+            return this.View(queryModel);
         }
 
         [HttpGet]

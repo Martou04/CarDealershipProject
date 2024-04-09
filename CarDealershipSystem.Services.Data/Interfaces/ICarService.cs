@@ -1,6 +1,7 @@
 ﻿namespace CarDealershipSystem.Services.Data.Interfaces
 {
-    using CarDealershipSystem.Data.Models;
+    using Models.Car;
+
     using Web.ViewModels.Car;
     using Web.ViewModels.Home;
 
@@ -10,5 +11,6 @@
 
         Task CreateAsync(CarFormModel formModel, string sellerId, List<Guid> selectedExtrasIds);
 
+        Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
     }
 }

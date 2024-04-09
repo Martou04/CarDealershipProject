@@ -31,7 +31,7 @@
             <img class="d-block w-100" style="height:500px"
                  src="https://assets.newatlas.com/dims4/default/7b0aeef/2147483647/strip/true/crop/1610x1080+0+0/resize/1610x1080!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fautonomous-car-parking-2.jpg">
             <div class="carousel-caption d-none d-md-block">
-                <a asp-controller="" asp-action="" class="btn btn-dark" role="button">View All Cars</a>
+                <a asp-controller="Car" asp-action="All" class="btn btn-dark" role="button">View All Cars</a>
             </div>
         </div>
         <div class="carousel-item">
@@ -63,7 +63,7 @@
                         <p>@car.CreatedOn.ToShortDateString()</p>
                     }
                 }</div>
-            <h6 class="card-price mt-3">€@car.Price</h6>
+            <h6 class="card-price mt-3">€@car.Price.ToString("### ### ###.00")</h6>
             <img src="@car.ImageUrl" class="card-img-top" alt="@car.Make @car.Model @car.Year">
             <div class="card-body d-flex flex-column">
                 <a class="text-decoration-none" asp-controller="" asp-action="" asp-route-id=""><h5 class="card-title text-black text-center">@car.Make @car.Model</h5></a>

@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealershipSystem.Web.Vie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0A297ABB-1921-48A7-AA52-0B1A31FCC73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealershipSystem.Services.Data", "CarDealershipSystem.Services.Data\CarDealershipSystem.Services.Data.csproj", "{4D3C248F-C028-4278-B553-FCA9FD8E7E79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealershipSystem.Services.Data", "CarDealershipSystem.Services.Data\CarDealershipSystem.Services.Data.csproj", "{4D3C248F-C028-4278-B553-FCA9FD8E7E79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealershipSystem.Web.Infrastructure", "CarDealershipSystem.Web.Infrastructure\CarDealershipSystem.Web.Infrastructure.csproj", "{69EC8B0F-1AC5-4942-9673-CA69199846C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealershipSystem.Web.Infrastructure", "CarDealershipSystem.Web.Infrastructure\CarDealershipSystem.Web.Infrastructure.csproj", "{69EC8B0F-1AC5-4942-9673-CA69199846C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealershipSystem.Services.Data.Models", "CarDealershipSystem.Services.Data.Models\CarDealershipSystem.Services.Data.Models.csproj", "{83BF1224-1458-4A60-A46E-48C3351B2A67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{69EC8B0F-1AC5-4942-9673-CA69199846C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69EC8B0F-1AC5-4942-9673-CA69199846C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69EC8B0F-1AC5-4942-9673-CA69199846C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83BF1224-1458-4A60-A46E-48C3351B2A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83BF1224-1458-4A60-A46E-48C3351B2A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83BF1224-1458-4A60-A46E-48C3351B2A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83BF1224-1458-4A60-A46E-48C3351B2A67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{58CFA71D-25BD-4AB6-9F72-714751C41759} = {8EA7FFDB-793F-4C4C-8D21-2BC0EABD6F36}
 		{4D3C248F-C028-4278-B553-FCA9FD8E7E79} = {0A297ABB-1921-48A7-AA52-0B1A31FCC73F}
 		{69EC8B0F-1AC5-4942-9673-CA69199846C1} = {8EA7FFDB-793F-4C4C-8D21-2BC0EABD6F36}
+		{83BF1224-1458-4A60-A46E-48C3351B2A67} = {0A297ABB-1921-48A7-AA52-0B1A31FCC73F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7C006BBD-FAE6-4C71-8703-C1A43D48C91E}

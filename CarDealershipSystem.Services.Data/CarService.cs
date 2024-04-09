@@ -6,9 +6,10 @@
     using Microsoft.EntityFrameworkCore;
     using CarDealershipSystem.Web.ViewModels.Car;
     using CarDealershipSystem.Data.Models;
-    using CarDealershipSystem.Web.ViewModels.CarExtra;
     using System.Collections.Generic;
-
+    using CarDealershipSystem.Services.Data.Models.Car;
+    using CarDealershipSystem.Web.ViewModels.Car.Enums;
+    using System.Text.RegularExpressions;
 
     public class CarService : ICarService
     {
@@ -85,6 +86,77 @@
             await this.dbContext.Cars.AddAsync(newCar);
             await this.dbContext.SaveChangesAsync();
         }
-        
+
+        public async Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel)
+        {
+            IQueryable<Car> carsQuery = this.dbContext
+                .Cars
+                .AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                carsQuery = carsQuery
+                    .Where(c => c.Category.Name == queryModel.Category);
+            }
+
+            if(!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+                carsQuery = carsQuery
+                    .Where(c => EF.Functions.Like(c.Make, wildCard) ||
+                                EF.Functions.Like(c.Model, wildCard) ||
+                                EF.Functions.Like(c.TransmissionType.Name, wildCard) ||
+                                EF.Functions.Like(c.Category.Name, wildCard) ||
+                                EF.Functions.Like(c.FuelType.Name, wildCard) ||
+                                EF.Functions.Like(c.Description, wildCard));
+            }
+
+            carsQuery = queryModel.CarSorting switch
+            {
+                CarSorting.Newest => carsQuery
+                    .OrderByDescending(c => c.CreatedOn),
+                CarSorting.Oldest => carsQuery
+                    .OrderBy(c => c.CreatedOn),
+                CarSorting.PriceAscending => carsQuery
+                    .OrderBy(c => c.Price),
+                CarSorting.PriceDescending => carsQuery
+                    .OrderByDescending(c => c.Price),
+                CarSorting.ManufactureYearAscending => carsQuery
+                    .OrderBy(c => c.Year),
+                CarSorting.ManufactureYearDescending => carsQuery
+                    .OrderByDescending(c => c.Year)
+            };
+
+            IEnumerable<CarAllViewModel> allCars = await carsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.CarsPerPage)
+                .Take(queryModel.CarsPerPage)
+                .Select(c => new CarAllViewModel
+                {
+                    Id = c.Id.ToString(),
+                    Make = c.Make,
+                    Model = c.Model,
+                    Description = Regex.Match(c.Description, @"^.*?[\.\?\!](?=\s[A-Z]|\s*$)").ToString(),
+                    Year = c.Year,
+                    Horsepower = c.Horsepower,
+                    Category = c.Category.Name,
+                    FuelType = c.FuelType.Name,
+                    TransmissionType = c.TransmissionType.Name,
+                    Kilometers = c.Kilometers,
+                    Price = c.Price,
+                    ImageUrl = c.ImageUrl,
+                    CreatedOn = c.CreatedOn,
+                    LocationCountry = c.Seller.LocationCountry,
+                    LocationCity = c.Seller.LocationCity
+                })
+                .ToArrayAsync();
+
+            int totalCars = carsQuery.Count();
+
+            return new AllCarsFilteredAndPagedServiceModel()
+            {
+                TotalCarsCount = totalCars,
+                Cars = allCars
+            };
+        }
     }
 }
