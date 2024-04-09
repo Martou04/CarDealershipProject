@@ -15,6 +15,10 @@ namespace CarDealershipSystem.Data.Configurations
                 .HasDefaultValueSql("GETDATE()");
 
             builder
+                .Property(c => c.IsActive)
+                .HasDefaultValue(true);
+
+            builder
                 .HasOne(c => c.Seller)
                 .WithMany(s => s.CarsForSale)
                 .HasForeignKey(c => c.SellerId)

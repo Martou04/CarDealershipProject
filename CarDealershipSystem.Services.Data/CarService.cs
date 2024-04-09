@@ -24,6 +24,7 @@
         {
             IEnumerable<IndexViewModel> lastFiveCars = await this.dbContext
                 .Cars
+                .Where(c => c.IsActive)
                 .OrderByDescending(c => c.CreatedOn)
                 .Take(5)
                 .Select(c => new IndexViewModel()
@@ -91,6 +92,7 @@
         {
             IQueryable<Car> carsQuery = this.dbContext
                 .Cars
+                .Where(c => c.IsActive)
                 .AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(queryModel.Category))
