@@ -1,0 +1,33 @@
+﻿@model List<AllSellerCars>
+
+@{
+    ViewData["Title"] = "My Cars For Sale";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if(!Model.Any())
+{
+    <h2 class="text-center">You have no cars for sale yet</h2>
+}
+
+<div class="row">
+    @foreach(AllSellerCars car in Model)
+    {
+        <div class="card m-3" style="width: 18rem;">
+            <div class="mb-1 align-self-end">@car.CreatedOn.ToShortDateString()</div>
+            <h6 class="card-price mt-3">€@car.Price.ToString("### ### ###.##")</h6>
+            <img src="@car.ImageUrl" class="card-img-top" alt="@car.Make @car.Model @car.Year">
+            <div class="card-body d-flex flex-column">
+                <a class="text-decoration-none" asp-action="" asp-route-id="@car.Id"><h5 class="card-title text-black text-center">@car.Year @car.Make @car.Model</h5></a>
+                <hr class="mt-1 mb-2" />
+                <div class="row mt-auto">
+                    <div class="col-4"><a asp-action="" asp-route-id="@car.Id" class="btn btn-dark">View</a></div>
+                    <div class="col-4"><a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-primary">Edit</a></div>
+                    <div class="col-4"><a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Delete</a></div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

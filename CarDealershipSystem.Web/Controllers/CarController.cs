@@ -137,5 +137,31 @@
 
             return this.RedirectToAction("All", "Car");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<AllSellerCars> myCars = new List<AllSellerCars>();
+
+            string userId = this.User.GetId()!;
+            bool isUserSeller = 
+                await this.sellerService.SellerExistsByUserIdAsync(userId);
+
+            if(isUserSeller)
+            {
+                string? sellerId = 
+                    await this.sellerService.GetSellerIdByUserIdAsync(userId);
+
+                myCars.AddRange(await this.carService.AllBySellerIdAsync(sellerId!));
+            }
+            else
+            {
+                this.TempData[ErrorMessage] = "You must be a seller to see your cars for sale!";
+
+                return this.RedirectToAction("Become", "Seller");
+            }
+
+            return this.View(myCars);
+        }
     }
 }

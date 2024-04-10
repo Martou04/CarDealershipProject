@@ -3,7 +3,7 @@
 
     <div class="card m-3" style="width: 18rem;">
         <div class="mb-1 align-self-end">@Model.CreatedOn.ToShortDateString()</div>
-    <h6 class="card-price mt-3">€@Model.Price.ToString("### ### ###.00")</h6>
+    <h6 class="card-price mt-3">€@Model.Price.ToString("### ### ###.##")</h6>
         <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Make @Model.Model @Model.Year">
         <div class="card-body d-flex flex-column">
             <a class="text-decoration-none" asp-action="Details" asp-route-id="@Model.Id"><h5 class="card-title text-black text-center">@Model.Make @Model.Model</h5></a>

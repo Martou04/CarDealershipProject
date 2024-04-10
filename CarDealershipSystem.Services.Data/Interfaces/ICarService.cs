@@ -12,5 +12,7 @@
         Task CreateAsync(CarFormModel formModel, string sellerId, List<Guid> selectedExtrasIds);
 
         Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
+
+        Task<IEnumerable<AllSellerCars>> AllBySellerIdAsync(string sellerId);
     }
 }

@@ -65,9 +65,9 @@
 
             if (selectedExtrasIds.Any())
             {
-                foreach (var extraId in selectedExtrasIds)
+                foreach (Guid extraId in selectedExtrasIds)
                 {
-                    var extra = this.dbContext
+                    Extra? extra = this.dbContext
                         .Extra
                         .FirstOrDefault(e => e.Id == extraId);
 
@@ -159,6 +159,27 @@
                 TotalCarsCount = totalCars,
                 Cars = allCars
             };
+        }
+
+        public async Task<IEnumerable<AllSellerCars>> AllBySellerIdAsync(string sellerId)
+        {
+            IEnumerable<AllSellerCars> allSellerCars = await this.dbContext
+                .Cars
+                .Where(c => c.SellerId.ToString() == sellerId &&
+                            c.IsActive)
+                .Select(c => new AllSellerCars
+                {
+                   Id = c.Id.ToString(),
+                   Make = c.Make,
+                   Model = c.Model,
+                   ImageUrl = c.ImageUrl,
+                   Year = c.Year,
+                   Price = c.Price,
+                   CreatedOn = c.CreatedOn
+                })
+                .ToArrayAsync ();
+
+            return allSellerCars;
         }
     }
 }

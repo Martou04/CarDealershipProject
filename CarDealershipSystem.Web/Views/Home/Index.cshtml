@@ -63,7 +63,7 @@
                         <p>@car.CreatedOn.ToShortDateString()</p>
                     }
                 }</div>
-            <h6 class="card-price mt-3">€@car.Price.ToString("### ### ###.00")</h6>
+            <h6 class="card-price mt-3">€@car.Price.ToString("### ### ###.##")</h6>
             <img src="@car.ImageUrl" class="card-img-top" alt="@car.Make @car.Model @car.Year">
             <div class="card-body d-flex flex-column">
                 <a class="text-decoration-none" asp-controller="" asp-action="" asp-route-id=""><h5 class="card-title text-black text-center">@car.Make @car.Model</h5></a>
