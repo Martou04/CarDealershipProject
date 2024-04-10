@@ -10,6 +10,7 @@
     using CarDealershipSystem.Services.Data.Models.Car;
     using CarDealershipSystem.Web.ViewModels.Car.Enums;
     using System.Text.RegularExpressions;
+    using Web.ViewModels.Seller;
 
     public class CarService : ICarService
     {
@@ -24,6 +25,8 @@
         {
             IEnumerable<IndexViewModel> lastFiveCars = await this.dbContext
                 .Cars
+                .Include(c => c.FuelType)
+                .Include(c => c.TransmissionType)
                 .Where(c => c.IsActive)
                 .OrderByDescending(c => c.CreatedOn)
                 .Take(5)
@@ -92,6 +95,11 @@
         {
             IQueryable<Car> carsQuery = this.dbContext
                 .Cars
+                .Include(c => c.Category)
+                .Include(c => c.FuelType)
+                .Include(c => c.TransmissionType)
+                .Include(c => c.Seller)
+                .ThenInclude(s => s.User)
                 .Where(c => c.IsActive)
                 .AsQueryable();
 
@@ -180,6 +188,62 @@
                 .ToArrayAsync ();
 
             return allSellerCars;
+        }
+
+        public async Task<CarDetailsViewModel?> GetDetailsByIdAsync(string carId)
+        {
+            Car? car = await this.dbContext
+                .Cars
+                .Include(c => c.Category)
+                .Include(c => c.FuelType)
+                .Include(c => c.TransmissionType)
+                .Include(c => c.CarExtras)
+                .ThenInclude(ce => ce.Extra)
+                .Include(c => c.Seller)
+                .ThenInclude(s => s.User)
+                .Where(c => c.IsActive)
+                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
+
+            if(car == null)
+            {
+                return null;
+            }
+
+            return new CarDetailsViewModel
+            {
+                Id = car.Id.ToString(),
+                Make = car.Make,
+                Model = car.Model,
+                Description = car.Description,
+                Year = car.Year,
+                Kilometers = car.Kilometers,
+                Horsepower = car.Horsepower,
+                Price = car.Price,
+                CreatedOn = car.CreatedOn,
+                ImageUrl = car.ImageUrl,
+                Category = car.Category.Name,
+                FuelType = car.FuelType.Name,
+                TransmissionType = car.TransmissionType.Name,
+                LocationCity = car.Seller.LocationCity,
+                LocationCountry = car.Seller.LocationCountry,
+                ComfortExtras = car.CarExtras
+                    .Where(ce => ce.Extra?.TypeId == 1 && ce.CarId == car.Id)
+                    .Select(ce => ce.Extra.Name)
+                    .ToList(),
+                SafetyExtras = car.CarExtras
+                    .Where(ce => ce.Extra?.TypeId == 2 && ce.CarId == car.Id)
+                    .Select(ce => ce.Extra.Name)
+                    .ToList(),
+                OtherExtras = car.CarExtras
+                    .Where(ce => ce.Extra?.TypeId == 3 && ce.CarId == car.Id)
+                    .Select(ce => ce.Extra.Name)
+                    .ToList(),
+                Seller = new SellerInfoOnCarDetailsViewModel()
+                {
+                    Email = car.Seller.User.Email,
+                    PhoneNumber = car.Seller.User.PhoneNumber,
+                }
+            };
         }
     }
 }

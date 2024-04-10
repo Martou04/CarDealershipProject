@@ -139,6 +139,22 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
+        {
+            CarDetailsViewModel? viewModel = await this.carService
+                .GetDetailsByIdAsync(id);
+            if(viewModel == null)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "Car");
+            }
+
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Mine()
         {
             List<AllSellerCars> myCars = new List<AllSellerCars>();

@@ -14,5 +14,7 @@
         Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
 
         Task<IEnumerable<AllSellerCars>> AllBySellerIdAsync(string sellerId);
+
+        Task<CarDetailsViewModel?> GetDetailsByIdAsync(string carId);
     }
 }

@@ -1,0 +1,99 @@
+﻿@model CarDetailsViewModel
+
+@{
+    this.ViewData["Title"] = $"{Model.Make} {Model.Model}";
+    int counter = 0;
+}
+
+<div class="col-10 offset-1">
+    <div class="row heading-margin: 1">
+        <div class="container">
+            <div class="d-flex justify-content-start text-muted" style="float: left">
+                <h6>Published on: @Model.CreatedOn</h6>
+            </div>
+            <div class="d-flex justify-content-end" style="float: right">
+                <text class="fs-3 text-black">€@Model.Price.ToString("### ### ###")</text>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2 mb-2">
+        <h1 class="display-4 mb-3 text-center text-black">@this.ViewData["Title"]</h1>
+    </div>
+    <div class="row text-black mb-2">
+        <h5 class="text-black">@Model.Year, @Model.Category, @Model.FuelType, @(Model.Kilometers)km, @Model.TransmissionType, @(Model.Horsepower)Hp</h5>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="mb-3 text-center text-black">Description</h4>
+            @Model.Description
+            <hr class="my-3" />
+            <h4 class="mb-3 text-center text-black">Car extras</h4>
+            <h5 class="mt-3 text-black"><i>Comfort:</i></h5>
+            @foreach (string extra in Model.ComfortExtras)
+            {
+                <text>@extra</text>
+
+                if (counter < Model.ComfortExtras.Count - 1)
+                {
+                    <text>, </text>
+                    counter++;
+                }
+                else
+                {
+                    counter = 0;
+                }
+            }
+            <h5 class="mt-3 text-black"><i>Safety:</i></h5>
+            @foreach (string extra in Model.SafetyExtras)
+            {
+                <text>@extra</text>
+
+                if (counter < Model.SafetyExtras.Count - 1)
+                {
+                    <text>, </text>
+                    counter++;
+                }
+                else
+                {
+                    counter = 0;
+                }
+            }
+            <h5 class="mt-3 text-black"><i>Other:</i></h5>
+            @foreach (string extra in Model.OtherExtras)
+            {
+                <text>@extra</text>
+
+                if (counter < Model.OtherExtras.Count - 1)
+                {
+                    <text>, </text>
+                    counter++;
+                }
+                else
+                {
+                    counter = 0;
+                }
+            }
+            <hr />
+            <div class="row mt-3 mb-3">
+                <div class="col">
+                    <div class="card" style="width: 17rem;">
+                        <div class="card-header text-center text-black">
+                            Seller information:
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-black">@Model.Seller.Email</li>
+                            <li class="list-group-item text-black">&nbsp;&nbsp;@Model.Seller.PhoneNumber</li>
+                            <li class="list-group-item text-black">&nbsp;&nbsp;@Model.LocationCity, @Model.LocationCountry</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 offset-md-1">
+            <div class="owl-carousel owl-theme">
+                <img src="@Model.ImageUrl" class="img-fluid rounded float-end" alt="@Model.Make @Model.Model @Model.Year" />
+            </div>
+        </div>
+    </div>
+</div>
