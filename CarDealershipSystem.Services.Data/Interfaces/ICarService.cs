@@ -15,6 +15,10 @@
 
         Task<IEnumerable<AllSellerCars>> AllBySellerIdAsync(string sellerId);
 
-        Task<CarDetailsViewModel?> GetDetailsByIdAsync(string carId);
+        Task<bool> ExistsByIdAsync(string carId);
+
+        Task<CarDetailsViewModel> GetDetailsByIdAsync(string carId);
+
+        Task<CarFormModel> GetCarForEditByIdAsync(string carId);
     }
 }

@@ -190,9 +190,9 @@
             return allSellerCars;
         }
 
-        public async Task<CarDetailsViewModel?> GetDetailsByIdAsync(string carId)
+        public async Task<CarDetailsViewModel> GetDetailsByIdAsync(string carId)
         {
-            Car? car = await this.dbContext
+            Car car = await this.dbContext
                 .Cars
                 .Include(c => c.Category)
                 .Include(c => c.FuelType)
@@ -202,12 +202,7 @@
                 .Include(c => c.Seller)
                 .ThenInclude(s => s.User)
                 .Where(c => c.IsActive)
-                .FirstOrDefaultAsync(c => c.Id.ToString() == carId);
-
-            if(car == null)
-            {
-                return null;
-            }
+                .FirstAsync(c => c.Id.ToString() == carId);
 
             return new CarDetailsViewModel
             {
@@ -241,8 +236,46 @@
                 Seller = new SellerInfoOnCarDetailsViewModel()
                 {
                     Email = car.Seller.User.Email,
-                    PhoneNumber = car.Seller.User.PhoneNumber,
+                    PhoneNumber = car.Seller.PhoneNumber,
                 }
+            };
+        }
+
+        public async Task<bool> ExistsByIdAsync(string carId)
+        {
+            bool result = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .AnyAsync(c => c.Id.ToString() == carId);
+
+            return result;
+        }
+
+        public async Task<CarFormModel> GetCarForEditByIdAsync(string carId)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Include(c => c.Category)
+                .Include(c => c.FuelType)
+                .Include(c => c.TransmissionType)
+                .Include(c => c.CarExtras)
+                .ThenInclude(ce => ce.Extra)
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            return new CarFormModel()
+            {
+                Make = car.Make,
+                Model = car.Model,
+                Description = car.Description,
+                Year = car.Year,
+                Kilometers = car.Kilometers,
+                Horsepower = car.Horsepower,
+                Price = car.Price,
+                ImageUrl = car.ImageUrl,
+                CategoryId = car.CategoryId,
+                FuelTypeId = car.FuelTypeId,
+                TransmissionTypeId = car.TransmissionTypeId,
             };
         }
     }

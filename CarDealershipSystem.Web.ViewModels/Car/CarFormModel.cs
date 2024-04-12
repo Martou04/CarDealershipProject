@@ -59,8 +59,6 @@ namespace CarDealershipSystem.Web.ViewModels.Car
 
         public IEnumerable<CarSelectTransmissionTypeFormModel> TransmissionTypes { get; set; }
 
-        [Display(Name = "Extras:")]
-        public int CarExtraId { get; set; }
         public IEnumerable<CarExtrasViewModel> CarExtras { get; set; }
 
         public IEnumerable<Guid> SelectedExtrasIds { get; set; }
