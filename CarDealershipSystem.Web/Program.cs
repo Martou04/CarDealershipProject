@@ -23,7 +23,6 @@ namespace CarDealershipSystem.Web
                 .AddDbContext<CarDealershipDbContext>(options => 
                 {
                     options.UseSqlServer(connectionString);
-                    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 });
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>

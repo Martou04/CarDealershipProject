@@ -284,6 +284,97 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool carExists = await this.carService
+                .ExistsByIdAsync(id);
+            if (!carExists)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "Car");
+            }
+
+            bool isUserSeller = await this.sellerService
+                .SellerExistsByUserIdAsync(this.User.GetId()!);
+            if (!isUserSeller)
+            {
+                this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
+
+                return this.RedirectToAction("Become", "Seller");
+            }
+
+            string? sellerId =
+                await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
+            bool isSellerOwner = await this.carService
+                .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
+            if (!isSellerOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
+
+                return this.RedirectToAction("Mine", "Car");
+            }
+
+            try
+            {
+                CarPreDeleteDetailsViewModel viewModel = 
+                    await this.carService.GetCarForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, CarPreDeleteDetailsViewModel model)
+        {
+            bool carExists = await this.carService
+                .ExistsByIdAsync(id);
+            if (!carExists)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "Car");
+            }
+
+            bool isUserSeller = await this.sellerService
+                .SellerExistsByUserIdAsync(this.User.GetId()!);
+            if (!isUserSeller)
+            {
+                this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
+
+                return this.RedirectToAction("Become", "Seller");
+            }
+
+            string? sellerId =
+                await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
+            bool isSellerOwner = await this.carService
+                .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
+            if (!isSellerOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
+
+                return this.RedirectToAction("Mine", "Car");
+            }
+
+            try
+            {
+                await this.carService.DeleteCarByIdAsync(id);
+
+                this.TempData[WarningMessage] = "The car was successfully deleted!";
+
+                return RedirectToAction("Mine", "Car");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Mine()
         {
             List<AllSellerCars> myCars = new List<AllSellerCars>();

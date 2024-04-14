@@ -358,7 +358,35 @@
                 }
             }
             
-            this.dbContext.Entry(car).State = EntityState.Modified;
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(string carId)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            return new CarPreDeleteDetailsViewModel
+            {
+                Make = car.Make,
+                Model = car.Model,
+                ImageUrl = car.ImageUrl,
+                Year = car.Year,
+                Price = car.Price
+            };
+        }
+
+        public async Task DeleteCarByIdAsync(string carId)
+        {
+            Car carToDelete = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            carToDelete.IsActive = false;
+
             await this.dbContext.SaveChangesAsync();
         }
     }

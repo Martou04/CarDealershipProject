@@ -1,0 +1,38 @@
+﻿@model CarPreDeleteDetailsViewModel
+
+@{
+    ViewData["Title"] = "Delete post";
+}
+
+<h3 class="text-center my-4">Are you sure you want to delete this post?</h3>
+<div class="row text-center">
+    <div class="col-md-8 offset-md-2">
+        <table class="table table-striped table-bordered my-3">
+            <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(model => model.Make)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Model)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Year)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>@Model.Make</td>
+                <td>@Model.Model</td>
+                <td>@Model.Year</td>
+                <td>€@Model.Price.ToString("### ### ###")</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6 offset-md-3">
+        <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.Make @Model.Model @Model.Year">
+    </div>
+</div>
+<div class="row text-center my-3">
+    <form method="post" class="my-3" asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Mine" class="btn btn-dark" role="button">Cancel</a>
+    </form>
+</div>
