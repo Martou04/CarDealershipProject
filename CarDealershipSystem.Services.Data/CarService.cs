@@ -48,7 +48,7 @@
             return lastFiveCars;
         }
 
-        public async Task CreateAsync(CarFormModel formModel, string sellerId, List<Guid> selectedExtrasIds)
+        public async Task<string> CreateAndReturnIdAsync(CarFormModel formModel, string sellerId, List<Guid> selectedExtrasIds)
         {
             Car newCar = new Car()
             {
@@ -89,6 +89,8 @@
 
             await this.dbContext.Cars.AddAsync(newCar);
             await this.dbContext.SaveChangesAsync();
+
+            return newCar.Id.ToString();
         }
 
         public async Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel)

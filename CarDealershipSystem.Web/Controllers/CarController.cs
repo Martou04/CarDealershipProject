@@ -129,9 +129,10 @@
 
                 List<Guid> selectedExtrasIds = formModel.SelectedExtrasIds.ToList();
 
-                await this.carService.CreateAsync(formModel, sellerId!,selectedExtrasIds);
+                string carId = 
+                    await this.carService.CreateAndReturnIdAsync(formModel, sellerId!,selectedExtrasIds);
 
-                return this.RedirectToAction("All", "Car");
+                return this.RedirectToAction("Details", "Car", new {id = carId});
             }
             catch (Exception)
             {

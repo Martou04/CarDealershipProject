@@ -9,7 +9,7 @@
     {
         Task<IEnumerable<IndexViewModel>> LastFiveCarsAsync();
 
-        Task CreateAsync(CarFormModel formModel, string sellerId, List<Guid> selectedExtrasIds);
+        Task<string> CreateAndReturnIdAsync(CarFormModel formModel, string sellerId, List<Guid> selectedExtrasIds);
 
         Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
 
