@@ -357,7 +357,8 @@
                     }
                 }
             }
-
+            
+            this.dbContext.Entry(car).State = EntityState.Modified;
             await this.dbContext.SaveChangesAsync();
         }
     }

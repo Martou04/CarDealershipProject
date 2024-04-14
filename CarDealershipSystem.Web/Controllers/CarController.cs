@@ -132,6 +132,7 @@
                 string carId = 
                     await this.carService.CreateAndReturnIdAsync(formModel, sellerId!,selectedExtrasIds);
 
+                this.TempData[SuccessMessage] = "Car was added successfully!";
                 return this.RedirectToAction("Details", "Car", new {id = carId});
             }
             catch (Exception)
@@ -267,6 +268,7 @@
                 List<Guid> selectedExtrasIds = formModel.SelectedExtrasIds.ToList();
                 await this.carService.EditAsync(id, formModel, selectedExtrasIds);
 
+                this.TempData[SuccessMessage] = "Car was edited successfully!";
                 return this.RedirectToAction("Details", "Car", new { id });
             }
             catch (Exception)
