@@ -60,15 +60,22 @@
                 return RedirectToAction("Become", "Seller");
             }
 
-            CarFormModel formModel = new CarFormModel()
+            try
             {
-                Categories = await this.categoryService.AllCategoriesAsync(),
-                FuelTypes = await this.fuelTypeService.AllFuelTypesAsync(),
-                TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync(),
-                CarExtras = await this.extraService.AllExtrasAndTypesAsync(),
-            };
+                CarFormModel formModel = new CarFormModel()
+                {
+                    Categories = await this.categoryService.AllCategoriesAsync(),
+                    FuelTypes = await this.fuelTypeService.AllFuelTypesAsync(),
+                    TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync(),
+                    CarExtras = await this.extraService.AllExtrasAndTypesAsync(),
+                };
 
-            return View(formModel);
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         [HttpPost]
@@ -123,6 +130,8 @@
                 List<Guid> selectedExtrasIds = formModel.SelectedExtrasIds.ToList();
 
                 await this.carService.CreateAsync(formModel, sellerId!,selectedExtrasIds);
+
+                return this.RedirectToAction("All", "Car");
             }
             catch (Exception)
             {
@@ -134,8 +143,6 @@
 
                 return this.View(formModel);
             }
-
-            return this.RedirectToAction("All", "Car");
         }
 
         [HttpGet]
@@ -151,16 +158,126 @@
                 return this.RedirectToAction("All", "Car");
             }
 
-            CarDetailsViewModel viewModel = await this.carService
+            try
+            {
+                CarDetailsViewModel viewModel = await this.carService
                 .GetDetailsByIdAsync(id);
 
-            return this.View(viewModel);
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            return this.Ok();
+            bool carExists = await this.carService
+                .ExistsByIdAsync(id);
+            if(!carExists)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "Car");
+            }
+
+            bool isUserSeller = await this.sellerService
+                .SellerExistsByUserIdAsync(this.User.GetId()!);
+            if(!isUserSeller)
+            {
+                this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
+
+                return this.RedirectToAction("Become", "Seller");
+            }
+
+            string? sellerId = 
+                await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
+            bool isSellerOwner = await this.carService
+                .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
+            if(!isSellerOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
+
+                return this.RedirectToAction("Mine", "Car");
+            }
+
+            try
+            {
+                CarFormModel formModel = await this.carService
+                .GetCarForEditByIdAsync(id);
+                formModel.Categories = await this.categoryService.AllCategoriesAsync();
+                formModel.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+                formModel.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+                formModel.CarExtras = await this.extraService.AllExtrasAndTypesAsync();
+
+                return this.View(formModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, CarFormModel formModel)
+        {
+            if(!this.ModelState.IsValid)
+            {
+                formModel.Categories = await this.categoryService.AllCategoriesAsync();
+                formModel.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+                formModel.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+                formModel.CarExtras = await this.extraService.AllExtrasAndTypesAsync();
+                return this.View(formModel);
+            }
+
+            bool carExists = await this.carService
+                .ExistsByIdAsync(id);
+            if (!carExists)
+            {
+                this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "Car");
+            }
+
+            bool isUserSeller = await this.sellerService
+                .SellerExistsByUserIdAsync(this.User.GetId()!);
+            if (!isUserSeller)
+            {
+                this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
+
+                return this.RedirectToAction("Become", "Seller");
+            }
+
+            string? sellerId =
+                await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
+            bool isSellerOwner = await this.carService
+                .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
+            if (!isSellerOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
+
+                return this.RedirectToAction("Mine", "Car");
+            }
+
+            try
+            {
+                List<Guid> selectedExtrasIds = formModel.SelectedExtrasIds.ToList();
+                await this.carService.EditAsync(id, formModel, selectedExtrasIds);
+
+                return this.RedirectToAction("Details", "Car", new { id });
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to update the car. Please try again later or contact admin.";
+                formModel.Categories = await this.categoryService.AllCategoriesAsync();
+                formModel.FuelTypes = await this.fuelTypeService.AllFuelTypesAsync();
+                formModel.TransmissionTypes = await this.transmissionTypeService.AllTransmissionTypesAsync();
+                formModel.CarExtras = await this.extraService.AllExtrasAndTypesAsync();
+
+                return this.View(formModel);
+            }
         }
 
         [HttpGet]
@@ -172,21 +289,36 @@
             bool isUserSeller = 
                 await this.sellerService.SellerExistsByUserIdAsync(userId);
 
-            if(isUserSeller)
+            try
             {
-                string? sellerId = 
-                    await this.sellerService.GetSellerIdByUserIdAsync(userId);
+                if (isUserSeller)
+                {
+                    string? sellerId =
+                        await this.sellerService.GetSellerIdByUserIdAsync(userId);
 
-                myCars.AddRange(await this.carService.AllBySellerIdAsync(sellerId!));
+                    myCars.AddRange(await this.carService.AllBySellerIdAsync(sellerId!));
+                }
+                else
+                {
+                    this.TempData[ErrorMessage] = "You must be a seller to see your cars for sale!";
+
+                    return this.RedirectToAction("Become", "Seller");
+                }
+
+                return this.View(myCars);
             }
-            else
+            catch (Exception)
             {
-                this.TempData[ErrorMessage] = "You must be a seller to see your cars for sale!";
-
-                return this.RedirectToAction("Become", "Seller");
+                return this.GeneralError();
             }
+        }
 
-            return this.View(myCars);
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later or contact admin!";
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

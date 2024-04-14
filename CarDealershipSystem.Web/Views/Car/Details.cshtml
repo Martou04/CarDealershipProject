@@ -20,9 +20,17 @@
         <h1 class="display-4 mb-3 text-center text-black">@this.ViewData["Title"]</h1>
     </div>
     <div class="row text-black mb-2">
-        <h5 class="text-black">@Model.Year, @Model.Category, @Model.FuelType, @(Model.Kilometers)km, @Model.TransmissionType, @(Model.Horsepower)Hp</h5>
-        <hr />
+        <div class="col">
+            <h5>@Model.Year, @Model.Category, @Model.FuelType, @(Model.Kilometers)km, @Model.TransmissionType, @(Model.Horsepower)Hp</h5>
+        </div>
+        <div class="col-auto">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        </div>
+        <div class="col-auto">
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+        </div>
     </div>
+    <hr />
     <div class="row">
         <div class="col-md-4">
             <h4 class="mb-3 text-center text-black">Description</h4>

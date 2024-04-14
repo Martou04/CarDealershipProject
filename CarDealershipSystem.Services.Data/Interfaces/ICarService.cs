@@ -20,5 +20,9 @@
         Task<CarDetailsViewModel> GetDetailsByIdAsync(string carId);
 
         Task<CarFormModel> GetCarForEditByIdAsync(string carId);
+
+        Task<bool> IsSellerWithIdOwnerOfCarWithIdAsync(string carId, string sellerId);
+
+        Task EditAsync(string carId,CarFormModel model, List<Guid> selectedExtrasIds);
     }
 }

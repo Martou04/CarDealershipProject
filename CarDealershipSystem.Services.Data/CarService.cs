@@ -275,8 +275,88 @@
                 ImageUrl = car.ImageUrl,
                 CategoryId = car.CategoryId,
                 FuelTypeId = car.FuelTypeId,
-                TransmissionTypeId = car.TransmissionTypeId,
+                TransmissionTypeId = car.TransmissionTypeId
             };
+        }
+
+        public async Task<bool> IsSellerWithIdOwnerOfCarWithIdAsync(string carId, string sellerId)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            return  car.SellerId.ToString() == sellerId;
+        }
+
+        public async Task EditAsync(string carId, CarFormModel formModel, List<Guid> selectedExtrasIds)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            car.Make = formModel.Make;
+            car.Model = formModel.Model;
+            car.Description = formModel.Description;
+            car.Year = formModel.Year;
+            car.Kilometers = formModel.Kilometers;
+            car.Horsepower = formModel.Horsepower;
+            car.Price = formModel.Price;
+            car.ImageUrl = formModel.ImageUrl;
+            car.CategoryId = formModel.CategoryId;
+            car.FuelTypeId = formModel.FuelTypeId;
+            car.TransmissionTypeId = formModel.TransmissionTypeId;
+
+            if (selectedExtrasIds.Any())
+            {
+                List<Guid> currentExtrasIds = this.dbContext
+                    .CarExtras
+                    .Where(ce => ce.CarId.ToString() == carId)
+                    .Select(ce => ce.ExtraId)
+                    .ToList();
+
+                foreach (Guid extraId in selectedExtrasIds)
+                {
+                    Extra? extra = this.dbContext
+                        .Extra
+                        .FirstOrDefault(e => e.Id == extraId);
+
+                    if (extra != null && !currentExtrasIds.Contains(extraId))
+                    {
+                        this.dbContext.Attach(extra);
+                        this.dbContext.Attach(car);
+
+                        car.CarExtras.Add(new CarExtra
+                        {
+                            Extra = extra,
+                            Car = car,
+                        });
+                    }
+                }
+
+                if (selectedExtrasIds.Count < currentExtrasIds.Count)
+                {
+                    var deletedExtrasIds = currentExtrasIds
+                        .Where(extraId => !selectedExtrasIds
+                        .Contains(extraId))
+                        .ToList();
+
+                    foreach (var deletedExtraId in deletedExtrasIds)
+                    {
+                        var deletedCarExtra = this.dbContext
+                            .CarExtras
+                            .First(ce => ce.CarId.ToString() == carId && 
+                                         ce.ExtraId == deletedExtraId);
+
+                        this.dbContext
+                            .CarExtras
+                            .Remove(deletedCarExtra);
+                    }
+                }
+            }
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
