@@ -45,6 +45,21 @@
     </div>
 </div>
 
+<div class="mb-5"></div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" id="statistics_btn">Show Statistics</button>
+    </div>
+</div>
+<div class="mt-4 p-5 bg-light d-none" id="statistics_box">
+    <div class="row">
+        <h2 class="col-md-6 text-center" id="total_cars"></h2>
+        <h2 class="col-md-6 text-center" id="total_sellers"></h2>
+    </div>
+</div>
+
+<div class="mb-5"></div>
 
 <hr class="mt-3 mb-3" />
 <h3>Latest posts:</h3>
@@ -56,11 +71,11 @@
                 @{
                     if(car.CreatedOn.Date == DateTime.UtcNow.Date)
                     {
-                        <p>Today, @car.CreatedOn.ToString("h:mm tt")</p>
+                            <p>Today, @car.CreatedOn.ToString("h:mm tt")</p>
                     }
                     else
                     {
-                        <p>@car.CreatedOn.ToShortDateString()</p>
+                            <p>@car.CreatedOn.ToShortDateString()</p>
                     }
                 }</div>
             <h6 class="card-price mt-3">€@car.Price.ToString("### ### ###.##")</h6>
@@ -76,3 +91,8 @@
         </div>
     }
 </div>
+
+@section Scripts
+{
+    <script>statistics();</script>
+}

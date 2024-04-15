@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>b8cfda70-c9a8-4e68-9b86-eebfc36a03a6</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarDealershipSystem.Common\CarDealershipSystem.Common.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Services.Data.Models\CarDealershipSystem.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Services.Data\CarDealershipSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Web.Infrastructure\CarDealershipSystem.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
