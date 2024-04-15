@@ -1,4 +1,10 @@
-﻿@using static CarDealershipSystem.Common.GeneralApplicationConstants;
+﻿
+@using static CarDealershipSystem.Common.GeneralApplicationConstants;
+
+@inject ISellerService SellerService
+@{
+    bool isUserSeller = await this.SellerService.SellerExistsByUserIdAsync(this.User.GetId());
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +34,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="All">All cars</a>
                         </li>
-                        @if(this.User.Identity?.IsAuthenticated ?? false)
+                        @if(isUserSeller && (this.User.Identity?.IsAuthenticated ?? false))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Mine">My cars for sale</a>

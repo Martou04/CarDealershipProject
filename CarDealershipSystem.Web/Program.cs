@@ -9,6 +9,7 @@ namespace CarDealershipSystem.Web
     using CarDealershipSystem.Web.Infrastructure.Extensions;
     using CarDealershipSystem.Services.Data.Interfaces;
     using CarDealershipSystem.Web.Infrastructure.ModelBinders;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Program
     {
@@ -48,6 +49,7 @@ namespace CarDealershipSystem.Web
                 .AddMvcOptions(options => 
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
             WebApplication app = builder.Build();
@@ -73,8 +75,11 @@ namespace CarDealershipSystem.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.UseEndpoints(config =>
+            {
+                config.MapDefaultControllerRoute();
+                config.MapRazorPages();
+            });
 
             app.Run();
         }

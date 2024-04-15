@@ -1,8 +1,11 @@
 ﻿@model CarDetailsViewModel
 
+@inject ISellerService SellerService
 @{
     this.ViewData["Title"] = $"{Model.Make} {Model.Model}";
     int counter = 0;
+    bool isUserSeller = await this.SellerService.SellerExistsByUserIdAsync(this.User.GetId());
+    bool isSellerOwnerOfCar = await this.SellerService.HasCarWithIdAsync(this.User.GetId(), Model.Id);
 }
 
 <div class="col-10 offset-1">
@@ -23,12 +26,15 @@
         <div class="col">
             <h5>@Model.Year, @Model.Category, @Model.FuelType, @(Model.Kilometers)km, @Model.TransmissionType, @(Model.Horsepower)Hp</h5>
         </div>
-        <div class="col-auto">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-        </div>
-        <div class="col-auto">
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-        </div>
+        @if(isUserSeller && isSellerOwnerOfCar)
+        {
+            <div class="col-auto">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            </div>
+            <div class="col-auto">
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+            </div>
+        }
     </div>
     <hr />
     <div class="row">

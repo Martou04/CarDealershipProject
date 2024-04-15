@@ -12,5 +12,7 @@ namespace CarDealershipSystem.Services.Data.Interfaces
         Task Create(string userId, BecomeSellerFormModel formModel);
 
         Task<string?> GetSellerIdByUserIdAsync(string userId);
+
+        Task<bool> HasCarWithIdAsync(string userId, string carId);
     }
 }

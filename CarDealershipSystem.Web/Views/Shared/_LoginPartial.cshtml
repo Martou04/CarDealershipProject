@@ -1,13 +1,23 @@
 ﻿@using Microsoft.AspNetCore.Identity
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject ISellerService SellerService
+
+@{
+    bool isUserSeller = await this.SellerService.SellerExistsByUserIdAsync(this.User.GetId());
+}
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Seller" asp-action="Become">Become Seller</a>
-    </li>
+    @if(!isUserSeller)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Seller" asp-action="Become">Become Seller</a>
+        </li>
+    }
+        
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
