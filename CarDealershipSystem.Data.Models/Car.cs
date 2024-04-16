@@ -61,8 +61,5 @@
         public virtual Seller Seller { get; set;} = null!;
 
         public virtual ICollection<CarExtra> CarExtras { get; set; }
-
-        public Guid? BuyerId { get; set; }
-        public ApplicationUser? Buyer {  get; set; }
     }
 }

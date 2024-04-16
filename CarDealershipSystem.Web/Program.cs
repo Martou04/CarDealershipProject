@@ -75,11 +75,8 @@ namespace CarDealershipSystem.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(config =>
-            {
-                config.MapDefaultControllerRoute();
-                config.MapRazorPages();
-            });
+            app.MapDefaultControllerRoute();
+            app.MapRazorPages();
 
             app.Run();
         }
