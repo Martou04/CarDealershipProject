@@ -26,7 +26,7 @@
         <div class="col">
             <h5>@Model.Year, @Model.Category, @Model.FuelType, @(Model.Kilometers)km, @Model.TransmissionType, @(Model.Horsepower)Hp</h5>
         </div>
-        @if(isUserSeller && isSellerOwnerOfCar)
+        @if((isUserSeller && isSellerOwnerOfCar) || this.User.IsAdmin())
         {
             <div class="col-auto">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>

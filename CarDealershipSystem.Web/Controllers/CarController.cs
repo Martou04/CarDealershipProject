@@ -192,7 +192,7 @@
 
             bool isUserSeller = await this.sellerService
                 .SellerExistsByUserIdAsync(this.User.GetId()!);
-            if(!isUserSeller)
+            if(!isUserSeller && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
 
@@ -203,7 +203,7 @@
                 await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
             bool isSellerOwner = await this.carService
                 .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
-            if(!isSellerOwner)
+            if(!isSellerOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
 
@@ -250,7 +250,7 @@
 
             bool isUserSeller = await this.sellerService
                 .SellerExistsByUserIdAsync(this.User.GetId()!);
-            if (!isUserSeller)
+            if (!isUserSeller && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
 
@@ -261,7 +261,7 @@
                 await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
             bool isSellerOwner = await this.carService
                 .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
-            if (!isSellerOwner)
+            if (!isSellerOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
 
@@ -302,7 +302,7 @@
 
             bool isUserSeller = await this.sellerService
                 .SellerExistsByUserIdAsync(this.User.GetId()!);
-            if (!isUserSeller)
+            if (!isUserSeller && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
 
@@ -313,7 +313,7 @@
                 await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
             bool isSellerOwner = await this.carService
                 .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
-            if (!isSellerOwner)
+            if (!isSellerOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
 
@@ -347,7 +347,7 @@
 
             bool isUserSeller = await this.sellerService
                 .SellerExistsByUserIdAsync(this.User.GetId()!);
-            if (!isUserSeller)
+            if (!isUserSeller && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become a seller in order to edit car info!";
 
@@ -358,7 +358,7 @@
                 await this.sellerService.GetSellerIdByUserIdAsync(this.User.GetId()!);
             bool isSellerOwner = await this.carService
                 .IsSellerWithIdOwnerOfCarWithIdAsync(id, sellerId!);
-            if (!isSellerOwner)
+            if (!isSellerOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the seller owner of the car you want to edit!";
 
