@@ -1,13 +1,18 @@
-﻿using CarDealershipSystem.Web.ViewModels.CarExtra;
-using CarDealershipSystem.Web.ViewModels.Category;
-using CarDealershipSystem.Web.ViewModels.FuelType;
-using CarDealershipSystem.Web.ViewModels.TransmissionType;
-using System.ComponentModel.DataAnnotations;
-
-namespace CarDealershipSystem.Web.ViewModels.Car
+﻿namespace CarDealershipSystem.Web.ViewModels.Car
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using CarDealershipSystem.Data.Models;
+    using AutoMapper;
+    using Services.Mapping;
+    using CarExtra;
+    using Category;
+    using FuelType;
+    using TransmissionType;
+
     using static Common.EntityValidationConstants.Car;
-    public class CarFormModel
+
+    public class CarFormModel : IMapTo<Car>, IHaveCustomMappings
     {
         public CarFormModel()
         {
@@ -62,5 +67,11 @@ namespace CarDealershipSystem.Web.ViewModels.Car
         public IEnumerable<CarExtrasViewModel> CarExtras { get; set; }
 
         public IEnumerable<Guid> SelectedExtrasIds { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<CarFormModel, Car>()
+                .ForMember(d => d.SellerId, opt => opt.Ignore());
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace CarDealershipSystem.Web.Controllers
     using ViewModels.User;
 
     using static Common.NotificationMessagesConstants;
+    using Griesoft.AspNetCore.ReCaptcha;
 
     public class UserController : Controller
     {
@@ -29,6 +30,8 @@ namespace CarDealershipSystem.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateRecaptcha(Action = "submit", 
+            ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Register(RegisterFormModel formModel)
         {
             if (!ModelState.IsValid)

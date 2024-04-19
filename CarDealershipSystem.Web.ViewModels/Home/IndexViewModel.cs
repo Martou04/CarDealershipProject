@@ -1,8 +1,9 @@
 ﻿namespace CarDealershipSystem.Web.ViewModels.Home
 {
-    using Services.Mapping;
     using CarDealershipSystem.Data.Models;
-    public class IndexViewModel : IMapFrom<Car>
+    using CarDealershipSystem.Web.ViewModels.FuelType;
+
+    public class IndexViewModel
     {
         public string Id { get; set; } = null!;
 

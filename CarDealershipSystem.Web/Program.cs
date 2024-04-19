@@ -48,6 +48,8 @@ namespace CarDealershipSystem.Web
 
             builder.Services.AddApplicationServices(typeof(ICarService));
 
+            builder.Services.AddRecaptchaService();
+
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
                 cfg.LoginPath = "/User/Login";

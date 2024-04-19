@@ -1,6 +1,4 @@
-﻿
-
-namespace CarDealershipSystem.Data.Models
+﻿namespace CarDealershipSystem.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
 

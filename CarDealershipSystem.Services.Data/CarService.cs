@@ -12,6 +12,7 @@
     using System.Text.RegularExpressions;
     using Web.ViewModels.Seller;
     using CarDealershipSystem.Services.Mapping;
+    using AutoMapper;
 
     public class CarService : ICarService
     {
@@ -31,7 +32,19 @@
                 .Where(c => c.IsActive)
                 .OrderByDescending(c => c.CreatedOn)
                 .Take(5)
-                .To<IndexViewModel>()
+                .Select(c => new IndexViewModel()
+                {
+                    Id = c.Id.ToString(),
+                    Make = c.Make,
+                    Model = c.Model,
+                    Year = c.Year,
+                    Horsepower = c.Horsepower,
+                    FuelType = c.FuelType.Name,
+                    TransmissionType = c.TransmissionType.Name,
+                    Price = c.Price,
+                    ImageUrl = c.ImageUrl,
+                    CreatedOn = c.CreatedOn
+                })
                 .ToArrayAsync();
 
             return lastFiveCars;
@@ -39,21 +52,8 @@
 
         public async Task<string> CreateAndReturnIdAsync(CarFormModel formModel, string sellerId, List<Guid> selectedExtrasIds)
         {
-            Car newCar = new Car()
-            {
-                Make = formModel.Make,
-                Model = formModel.Model,
-                Description = formModel.Description,
-                Year = formModel.Year,
-                Kilometers = formModel.Kilometers,
-                Horsepower = formModel.Horsepower,
-                Price = formModel.Price,
-                ImageUrl = formModel.ImageUrl,
-                CategoryId = formModel.CategoryId,
-                FuelTypeId = formModel.FuelTypeId,
-                TransmissionTypeId = formModel.TransmissionTypeId,
-                SellerId = Guid.Parse(sellerId),
-            };
+            Car newCar = AutoMapperConfig.MapperInstance.Map<Car>(formModel);
+            newCar.SellerId = Guid.Parse(sellerId);
 
             if (selectedExtrasIds.Any())
             {
