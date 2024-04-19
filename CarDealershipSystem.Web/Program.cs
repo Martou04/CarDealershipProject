@@ -1,15 +1,16 @@
-
 namespace CarDealershipSystem.Web
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Mvc;
 
     using Data;
     using CarDealershipSystem.Data.Models;
-    using CarDealershipSystem.Web.Infrastructure.Extensions;
-    using CarDealershipSystem.Services.Data.Interfaces;
-    using CarDealershipSystem.Web.Infrastructure.ModelBinders;
-    using Microsoft.AspNetCore.Mvc;
+    using Infrastructure.Extensions;
+    using Services.Data.Interfaces;
+    using Infrastructure.ModelBinders;
+
+    using static Common.GeneralApplicationConstants;
 
     public class Program
     {
@@ -79,6 +80,8 @@ namespace CarDealershipSystem.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdmin(DevelopmentAdminEmail);
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();

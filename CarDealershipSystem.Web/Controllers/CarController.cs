@@ -20,10 +20,12 @@
         private readonly IFuelTypeService fuelTypeService;
         private readonly ITransmissionTypeService transmissionTypeService;
         private readonly IExtraService extraService;
+        private readonly IUserService userService;
 
         public CarController(ICarService carService,ISellerService sellerService, 
                              ICategoryService categoryService, IFuelTypeService fuelTypeService, 
-                             ITransmissionTypeService transmissionTypeService, IExtraService extraService)
+                             ITransmissionTypeService transmissionTypeService, IExtraService extraService,
+                             IUserService userService)
         {
             this.carService = carService;
             this.sellerService = sellerService;
@@ -31,6 +33,7 @@
             this.fuelTypeService = fuelTypeService;
             this.transmissionTypeService = transmissionTypeService;
             this.extraService = extraService;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -164,6 +167,8 @@
             {
                 CarDetailsViewModel viewModel = await this.carService
                 .GetDetailsByIdAsync(id);
+                viewModel.Seller.FullName =
+                    await this.userService.GetFullNameByEmailAsync(viewModel.Seller.Email);
 
                 return this.View(viewModel);
             }
