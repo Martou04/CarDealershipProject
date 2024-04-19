@@ -21,11 +21,11 @@ namespace CarDealershipSystem.Web
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            string connectionString = 
+            string connectionString =
                 builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services
-                .AddDbContext<CarDealershipDbContext>(options => 
+                .AddDbContext<CarDealershipDbContext>(options =>
                 {
                     options.UseSqlServer(connectionString);
                 });
@@ -53,11 +53,12 @@ namespace CarDealershipSystem.Web
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
                 cfg.LoginPath = "/User/Login";
+                cfg.AccessDeniedPath = "/Home/Error/401";
             });
 
             builder.Services
                 .AddControllersWithViews()
-                .AddMvcOptions(options => 
+                .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
@@ -75,7 +76,7 @@ namespace CarDealershipSystem.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error/500");
-                app.UseStatusCodePagesWithRedirects("Home/Error/statusCode={0}");
+                app.UseStatusCodePagesWithRedirects("/Home/Error/statusCode={0}");
 
                 app.UseHsts();
             }
@@ -90,8 +91,17 @@ namespace CarDealershipSystem.Web
 
             app.SeedAdmin(DevelopmentAdminEmail);
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.UseEndpoints(config =>
+            {
+                config.MapControllerRoute(
+                    name: "areas",
+                    pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                config.MapDefaultControllerRoute();
+
+                config.MapRazorPages();
+            });
+
 
             app.Run();
         }
