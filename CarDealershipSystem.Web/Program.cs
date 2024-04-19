@@ -1,5 +1,7 @@
 namespace CarDealershipSystem.Web
 {
+    using System.Reflection;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Mvc;
@@ -9,7 +11,8 @@ namespace CarDealershipSystem.Web
     using Infrastructure.Extensions;
     using Services.Data.Interfaces;
     using Infrastructure.ModelBinders;
-
+    using Services.Mapping;
+    using ViewModels.Home;
     using static Common.GeneralApplicationConstants;
 
     public class Program
@@ -59,6 +62,8 @@ namespace CarDealershipSystem.Web
                 });
 
             WebApplication app = builder.Build();
+
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             if (app.Environment.IsDevelopment())
             {

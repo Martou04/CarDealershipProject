@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarDealershipSystem.Common\CarDealershipSystem.Common.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Data\CarDealershipSystem.Data.csproj" />
+    <ProjectReference Include="..\CarDealershipSystem.Services.Mapping\CarDealershipSystem.Services.Mapping.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@
     using CarDealershipSystem.Web.ViewModels.Car.Enums;
     using System.Text.RegularExpressions;
     using Web.ViewModels.Seller;
+    using CarDealershipSystem.Services.Mapping;
 
     public class CarService : ICarService
     {
@@ -30,19 +31,7 @@
                 .Where(c => c.IsActive)
                 .OrderByDescending(c => c.CreatedOn)
                 .Take(5)
-                .Select(c => new IndexViewModel()
-                {
-                    Id = c.Id.ToString(),
-                    Make = c.Make,
-                    Model = c.Model,
-                    Year = c.Year,
-                    Horsepower = c.Horsepower,
-                    FuelType = c.FuelType.Name,
-                    TransmissionType = c.TransmissionType.Name,
-                    Price = c.Price,
-                    ImageUrl = c.ImageUrl,
-                    CreatedOn = c.CreatedOn
-                })
+                .To<IndexViewModel>()
                 .ToArrayAsync();
 
             return lastFiveCars;
