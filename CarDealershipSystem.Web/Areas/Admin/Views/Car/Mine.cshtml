@@ -1,0 +1,12 @@
+﻿@model MyCarsViewModel
+
+@{
+    ViewData["Title"] = "My Cars For Sale";
+}
+
+
+<div class="row">
+
+        @await Html.PartialAsync("~/Views/Car/Mine.cshtml", Model.AddedCars)
+
+</div>

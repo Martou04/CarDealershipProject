@@ -37,8 +37,4 @@
     <ProjectReference Include="..\CarDealershipSystem.Web.ViewModels\CarDealershipSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\ViewModels\" />
-  </ItemGroup>
-
 </Project>

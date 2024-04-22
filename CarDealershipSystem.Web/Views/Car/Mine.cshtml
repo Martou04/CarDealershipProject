@@ -1,4 +1,4 @@
-﻿@model List<AllSellerCars>
+﻿@model IEnumerable<AllSellerCars>
 
 @{
     ViewData["Title"] = "My Cars For Sale";
@@ -23,9 +23,9 @@
                 <a class="text-decoration-none" asp-action="" asp-route-id="@car.Id"><h5 class="card-title text-black text-center">@car.Year @car.Make @car.Model</h5></a>
                 <hr class="mt-1 mb-2" />
                 <div class="row mt-auto">
-                    <div class="col-4"><a asp-action="Details" asp-route-id="@car.Id" class="btn btn-dark">View</a></div>
-                    <div class="col-4"><a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-primary">Edit</a></div>
-                    <div class="col-4"><a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Delete</a></div>
+                    <div class="col-4"><a asp-area="" asp-action="Details" asp-route-id="@car.Id" class="btn btn-dark">View</a></div>
+                    <div class="col-4"><a asp-area="" asp-action="Edit" asp-route-id="@car.Id" class="btn btn-primary">Edit</a></div>
+                    <div class="col-4"><a asp-area="" asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Delete</a></div>
                 </div>
             </div>
         </div>
