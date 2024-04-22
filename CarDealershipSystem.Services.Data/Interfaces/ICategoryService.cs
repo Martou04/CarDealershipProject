@@ -13,7 +13,7 @@
 
         Task<bool> ExistsByNameAsync(string name);
 
-        Task<IEnumerable<CategoryAllViewModel>> AllCategorysNamesAsync();
+        Task<IEnumerable<CategoryAllViewModel>> AllCategoriesNamesAsync();
 
         Task<CategoryFormModel> GetCategoryForEditByIdAsync(int Id);
 

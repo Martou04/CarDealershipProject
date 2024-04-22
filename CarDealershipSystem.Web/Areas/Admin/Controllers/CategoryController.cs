@@ -3,9 +3,7 @@
     using CarDealershipSystem.Services.Data.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 
-    using Web.Data;
     using Web.ViewModels.Category;
-    using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
 
     public class CategoryController : BaseAdminController
@@ -22,7 +20,7 @@
         public async Task<IActionResult> All()
         {
             IEnumerable<CategoryAllViewModel> allCategories = 
-                await this.categoryService.AllCategorysNamesAsync();
+                await this.categoryService.AllCategoriesNamesAsync();
 
             return this.View(allCategories);
         }

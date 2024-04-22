@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CategoryAllViewModel>
+﻿@model IEnumerable<FuelTypeAllViewModel>
 
 @{
-    ViewData["Title"] = "All Car Categories";
+    ViewData["Title"] = "All Fuel Types";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
@@ -13,11 +13,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (CategoryAllViewModel category in Model)
+        @foreach (FuelTypeAllViewModel fuelType in Model)
         {
             <tr>
-                <td><label>@category.Name</label></td>
-                <td><a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary">Edit</a></td>
+                <td><label>@fuelType.Name</label></td>
+                <td><a asp-action="Edit" asp-route-id="@fuelType.Id" class="btn btn-primary">Edit</a></td>
             </tr>
         }
     </tbody>

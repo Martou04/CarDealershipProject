@@ -69,7 +69,7 @@
             return result;
         }
 
-        public async Task<IEnumerable<CategoryAllViewModel>> AllCategorysNamesAsync()
+        public async Task<IEnumerable<CategoryAllViewModel>> AllCategoriesNamesAsync()
         {
             ICollection<CategoryAllViewModel> categories = await this.dbContext
                 .Categories
