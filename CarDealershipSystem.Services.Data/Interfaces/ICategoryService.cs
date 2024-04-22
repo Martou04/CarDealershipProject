@@ -12,5 +12,11 @@
         Task AddCategoryAsync(CategoryFormModel formModel);
 
         Task<bool> ExistsByNameAsync(string name);
+
+        Task<IEnumerable<CategoryAllViewModel>> AllCategorysNamesAsync();
+
+        Task<CategoryFormModel> GetCategoryForEditByIdAsync(int Id);
+
+        Task EditAsync(int Id,  CategoryFormModel model);
     }
 }

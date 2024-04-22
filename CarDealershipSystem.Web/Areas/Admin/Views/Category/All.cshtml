@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CategoryAllViewModel>
+
+@{
+    ViewData["Title"] = "All Car Categories";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Name</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (CategoryAllViewModel category in Model)
+        {
+            <tr>
+                <td><label>@category.Name</label></td>
+                <td><a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

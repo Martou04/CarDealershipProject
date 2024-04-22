@@ -19,7 +19,7 @@
         {
             IEnumerable<UserViewModel> viewModels = await this.userService.AllAsync();
 
-            return View(viewModels);
+            return this.View(viewModels);
         }
     }
 }

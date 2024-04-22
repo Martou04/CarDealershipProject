@@ -30,11 +30,11 @@
             return allCategories;
         }
 
-        public async Task<bool> ExistsByIdAsync(int id)
+        public async Task<bool> ExistsByIdAsync(int Id)
         {
             bool result = await this.dbContext
                 .Categories
-                .AnyAsync(c => c.Id == id);
+                .AnyAsync(c => c.Id == Id);
 
             return result;
         }
@@ -67,6 +67,45 @@
                 .AnyAsync (c => c.Name == name);
 
             return result;
+        }
+
+        public async Task<IEnumerable<CategoryAllViewModel>> AllCategorysNamesAsync()
+        {
+            ICollection<CategoryAllViewModel> categories = await this.dbContext
+                .Categories
+                .Select(c => new CategoryAllViewModel
+                {
+                    Id = c.Id,
+                    Name= c.Name,
+                })
+                .ToArrayAsync();
+
+            return categories;
+        }
+
+        public async Task<CategoryFormModel> GetCategoryForEditByIdAsync(int Id)
+        {
+            Category category = await this.dbContext
+                .Categories
+                .FirstAsync(c => c.Id == Id);
+
+            CategoryFormModel formModel = new CategoryFormModel()
+            {
+                Name = category.Name,
+            };
+
+            return formModel;
+        }
+
+        public async Task EditAsync(int Id, CategoryFormModel model)
+        {
+            Category category = await this.dbContext
+                .Categories
+                .FirstAsync(c => c.Id == Id);
+
+            category.Name = model.Name;
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
