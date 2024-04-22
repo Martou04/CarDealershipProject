@@ -5,6 +5,7 @@
     using Interfaces;
     using Web.Data;
     using Web.ViewModels.Category;
+    using CarDealershipSystem.Data.Models;
 
     public class CategoryService : ICategoryService
     {
@@ -48,5 +49,24 @@
             return allNames;
         }
 
+        public async Task AddCategoryAsync(CategoryFormModel formModel)
+        {
+            Category newCategory = new Category()
+            {
+                Name = formModel.Name,
+            };
+
+            await this.dbContext.Categories.AddAsync(newCategory);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsByNameAsync(string name)
+        {
+            bool result = await this.dbContext
+                .Categories
+                .AnyAsync (c => c.Name == name);
+
+            return result;
+        }
     }
 }

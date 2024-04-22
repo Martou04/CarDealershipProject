@@ -8,5 +8,9 @@
         Task<bool> ExistsByIdAsync(int id);
 
         Task<IEnumerable<string>> AllCategoryNamesAsync();
+
+        Task AddCategoryAsync(CategoryFormModel formModel);
+
+        Task<bool> ExistsByNameAsync(string name);
     }
 }
