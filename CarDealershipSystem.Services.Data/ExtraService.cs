@@ -23,7 +23,6 @@ namespace CarDealershipSystem.Services.Data
         {
             IEnumerable<CarExtrasViewModel> allExtras = await this.dbContext
                 .Extra
-                .AsNoTracking()
                 .Select(e => new CarExtrasViewModel
                 {
                     Id = e.Id,
@@ -35,5 +34,7 @@ namespace CarDealershipSystem.Services.Data
 
             return allExtras;
         }
+
+
     }
 }

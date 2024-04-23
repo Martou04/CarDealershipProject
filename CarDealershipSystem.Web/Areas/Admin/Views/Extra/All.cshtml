@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CarExtrasViewModel>
+
+@{
+    ViewData["Title"] = "All Car Extras";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+@foreach (var group in Model.GroupBy(extra => extra.TypeName))
+{
+    <h3>@group.Key</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><label>Name</label></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var extra in group)
+            {
+                <tr>
+                    <td><label>@extra.Name</label></td>
+                    <td><a asp-action="Edit" asp-route-id="@extra.Id" class="btn btn-primary">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div class="align-content-center">
+    <a asp-action="Add" class="btn btn-success">Add</a>
+</div>
