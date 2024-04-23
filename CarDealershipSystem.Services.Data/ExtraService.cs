@@ -1,4 +1,5 @@
-﻿using CarDealershipSystem.Services.Data.Interfaces;
+﻿using CarDealershipSystem.Data.Models;
+using CarDealershipSystem.Services.Data.Interfaces;
 using CarDealershipSystem.Web.Data;
 using CarDealershipSystem.Web.ViewModels.CarExtra;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,40 @@ namespace CarDealershipSystem.Services.Data
             return allExtras;
         }
 
+        public async Task<IEnumerable<CarExtrasViewModel>> AllExtraTypesAsync()
+        {
+            IEnumerable<CarExtrasViewModel> allExtraTypes = await this.dbContext
+                .ExtraTypes
+                .Select(et => new  CarExtrasViewModel
+                {
+                    TypeId = et.Id,
+                    TypeName = et.Name
+                })
+                .ToArrayAsync();
 
+            return allExtraTypes;
+        }
+
+        public async Task<bool> ExtraExistsAsync(int typeId, string name)
+        {
+            bool result = await this.dbContext
+                .Extra
+                .Where(e => e.TypeId == typeId)
+                .AnyAsync(e => e.Name == name);
+
+            return result;
+        }
+
+        public async Task AddExtraAsync(ExtraFormModel formModel)
+        {
+            Extra extra = new Extra()
+            {
+                Name = formModel.Name,
+                TypeId = formModel.ExtraTypeId
+            };
+
+            await this.dbContext.Extra.AddAsync(extra);
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }
