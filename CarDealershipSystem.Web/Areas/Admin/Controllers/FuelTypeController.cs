@@ -65,5 +65,53 @@
                 return this.View(formModel);
             }
         }
+
+        [HttpGet]
+        [Route("FuelType/Edit")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            bool fuelTypeExists = await this.fuelTypeService.ExistsByIdAsync(id);
+            if(!fuelTypeExists)
+            {
+                this.TempData[ErrorMessage] = "Тhe Fuel Type you selected does not exist!";
+
+                return this.RedirectToAction("All", "FuelType");
+            }
+
+            FuelTypeFormModel formModel = await this.fuelTypeService.GetFuelTypeForEditAsync(id);
+
+            return this.View(formModel);
+        }
+
+        [HttpPost]
+        [Route("FuelType/Edit")]
+        public async Task<IActionResult> Edit(int id, FuelTypeFormModel formModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return this.View(formModel);
+            }
+
+            bool fuelTypeExists = await this.fuelTypeService.ExistsByIdAsync(id);
+            if (!fuelTypeExists)
+            {
+                this.TempData[ErrorMessage] = "Тhe Fuel Type you selected does not exist!";
+
+                return this.RedirectToAction("All", "FuelType");
+            }
+
+            try
+            {
+                await this.fuelTypeService.EditAsync(id, formModel);
+
+                this.TempData[SuccessMessage] = "Fuel Type was edited successfully!";
+                return this.RedirectToAction("All", "FuelType");
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to edit the car category.";
+                return this.View(formModel);
+            }
+        }
     }
 }

@@ -13,5 +13,9 @@
         Task<bool> ExistsByNameAsync(string Name);
 
         Task AddFuelTypeAsync(FuelTypeFormModel formModel);
+
+        Task<FuelTypeFormModel> GetFuelTypeForEditAsync(int Id);
+
+        Task EditAsync(int Id, FuelTypeFormModel formModel);
     }
 }

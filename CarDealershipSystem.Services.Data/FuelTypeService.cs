@@ -73,5 +73,30 @@
             await this.dbContext.FuelTypes.AddAsync(fuelType);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<FuelTypeFormModel> GetFuelTypeForEditAsync(int Id)
+        {
+            FuelType fuelType = await this.dbContext
+                .FuelTypes
+                .FirstAsync(ft => ft.Id == Id);
+
+            FuelTypeFormModel formModel = new FuelTypeFormModel()
+            {
+                Name = fuelType.Name,
+            };
+
+            return formModel;
+        }
+
+        public async Task EditAsync(int Id, FuelTypeFormModel formModel)
+        {
+            FuelType fuelType = await this.dbContext
+                .FuelTypes
+                .FirstAsync(ft => ft.Id == Id);
+
+            fuelType.Name = formModel.Name;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }
