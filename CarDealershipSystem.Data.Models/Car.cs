@@ -44,6 +44,8 @@
 
         public bool IsActive { get; set; }
 
+        public bool Approved { get; set; }
+
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; } = null!;

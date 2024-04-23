@@ -15,6 +15,10 @@ namespace CarDealershipSystem.Data.Configurations
                 .HasDefaultValueSql("GETDATE()");
 
             builder
+                .Property(c => c.Approved)
+                .HasDefaultValue(false);
+
+            builder
                 .Property(c => c.IsActive)
                 .HasDefaultValue(true);
 
