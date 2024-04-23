@@ -71,5 +71,41 @@ namespace CarDealershipSystem.Services.Data
             await this.dbContext.Extra.AddAsync(extra);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> ExtraExistsByIdAsync(string Id)
+        {
+            bool result = await this.dbContext
+                .Extra
+                .AnyAsync(e => e.Id.ToString() == Id);
+
+            return result;
+        }
+
+        public async Task<ExtraFormModel> GetExtraForEditByIdAsync(string Id)
+        {
+            Extra extra = await this.dbContext
+                .Extra
+                .FirstAsync(e => e.Id.ToString() == Id);
+
+            ExtraFormModel model = new ExtraFormModel()
+            {
+                Name = extra.Name,
+                ExtraTypeId = extra.TypeId
+            };
+
+            return model;
+        }
+
+        public async Task EditAsync(string Id, ExtraFormModel model)
+        {
+            Extra extra = await this.dbContext
+                .Extra
+                .FirstAsync(e => e.Id.ToString() == Id);
+
+            extra.Name = model.Name;
+            extra.TypeId = model.ExtraTypeId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

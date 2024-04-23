@@ -11,5 +11,11 @@ namespace CarDealershipSystem.Services.Data.Interfaces
         Task<bool> ExtraExistsAsync(int typeId, string name);
 
         Task AddExtraAsync(ExtraFormModel formModel);
+
+        Task<bool> ExtraExistsByIdAsync(string Id);
+
+        Task<ExtraFormModel> GetExtraForEditByIdAsync(string Id);
+
+        Task EditAsync(string Id, ExtraFormModel model);
     }
 }

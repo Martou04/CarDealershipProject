@@ -71,5 +71,58 @@
                 return this.View(formModel);
             }
         }
+
+        [HttpGet]
+        [Route("Extra/Edit")]
+        public async Task<IActionResult> Edit(string Id)
+        {
+            bool extraExists = await this.extraService.ExtraExistsByIdAsync(Id);
+            if(!extraExists)
+            {
+                this.TempData[ErrorMessage] = "Тhe Extra you selected does not exist!";
+                
+                return this.RedirectToAction("All", "Extra");
+            }
+
+            ExtraFormModel formModel = await this.extraService.GetExtraForEditByIdAsync(Id);
+            formModel.ExtraTypes = await this.extraService.AllExtraTypesAsync();
+
+            return this.View(formModel);
+        }
+
+        [HttpPost]
+        [Route("Extra/Edit")]
+        public async Task<IActionResult> Edit(string Id, ExtraFormModel formModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                formModel.ExtraTypes = await this.extraService.AllExtraTypesAsync();
+
+                return this.View(formModel);
+            }
+
+            bool extraExists = await this.extraService.ExtraExistsByIdAsync(Id);
+            if (!extraExists)
+            {
+                this.TempData[ErrorMessage] = "Тhe Extra you selected does not exist!";
+
+                return this.RedirectToAction("All", "Extra");
+            }
+
+            try
+            {
+                await this.extraService.EditAsync(Id, formModel);
+
+                this.TempData[SuccessMessage] = "Extra was edited successfully!";
+                return this.RedirectToAction("All", "Extra");
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to edit the extra.";
+                formModel.ExtraTypes = await this.extraService.AllExtraTypesAsync();
+
+                return this.View(formModel);
+            }
+        }
     }
 }
