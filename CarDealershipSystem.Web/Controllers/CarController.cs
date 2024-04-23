@@ -8,8 +8,8 @@
     using CarDealershipSystem.Web.ViewModels.CarExtra;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
     using static Common.NotificationMessagesConstants;
+    using static Common.GeneralApplicationConstants;
 
     [Authorize]    
     public class CarController : Controller
@@ -156,7 +156,7 @@
         {
             bool carExists = await this.carService
                 .ExistsByIdAsync(id);
-            if (!carExists)
+            if (!carExists && !this.User.IsInRole(AdminRoleName))
             {
                 this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
 
@@ -183,7 +183,7 @@
         {
             bool carExists = await this.carService
                 .ExistsByIdAsync(id);
-            if(!carExists)
+            if(!carExists && !this.User.IsInRole(AdminRoleName))
             {
                 this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
 
@@ -241,7 +241,7 @@
 
             bool carExists = await this.carService
                 .ExistsByIdAsync(id);
-            if (!carExists)
+            if (!carExists && !this.User.IsInRole(AdminRoleName))
             {
                 this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
 
@@ -293,7 +293,7 @@
         {
             bool carExists = await this.carService
                 .ExistsByIdAsync(id);
-            if (!carExists)
+            if (!carExists && !this.User.IsInRole(AdminRoleName))
             {
                 this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
 
@@ -338,7 +338,7 @@
         {
             bool carExists = await this.carService
                 .ExistsByIdAsync(id);
-            if (!carExists)
+            if (!carExists && !this.User.IsInRole(AdminRoleName))
             {
                 this.TempData[ErrorMessage] = "Car with the provided id does not exist!";
 

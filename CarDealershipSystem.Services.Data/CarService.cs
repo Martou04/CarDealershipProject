@@ -29,7 +29,7 @@
                 .Cars
                 .Include(c => c.FuelType)
                 .Include(c => c.TransmissionType)
-                .Where(c => c.IsActive)
+                .Where(c => c.IsActive && c.Approved)
                 .OrderByDescending(c => c.CreatedOn)
                 .Take(5)
                 .Select(c => new IndexViewModel()
@@ -91,7 +91,7 @@
                 .Include(c => c.TransmissionType)
                 .Include(c => c.Seller)
                 .ThenInclude(s => s.User)
-                .Where(c => c.IsActive)
+                .Where(c => c.IsActive && c.Approved)
                 .AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(queryModel.Category))
@@ -160,6 +160,17 @@
             };
         }
 
+        public async Task<IEnumerable<CarAdminAllViewModel>> AllCarsForAdminAsync()
+        {
+            IEnumerable<CarAdminAllViewModel> allCars = await this.dbContext
+                .Cars
+                .Where(c => c.IsActive)
+                .To<CarAdminAllViewModel>()
+                .ToArrayAsync();
+
+            return allCars;
+        }
+
         public async Task<IEnumerable<AllSellerCars>> AllBySellerIdAsync(string sellerId)
         {
             IEnumerable<AllSellerCars> allSellerCars = await this.dbContext
@@ -176,7 +187,7 @@
                    Price = c.Price,
                    CreatedOn = c.CreatedOn
                 })
-                .ToArrayAsync ();
+                .ToArrayAsync();
 
             return allSellerCars;
         }
@@ -375,6 +386,17 @@
                 .FirstAsync(c => c.Id.ToString() == carId);
 
             carToDelete.IsActive = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task ChangeVisibilityAsync(string carId)
+        {
+            Car car = await this.dbContext
+                .Cars
+                .FirstAsync(c => c.Id.ToString() == carId);
+
+            car.Approved = !car.Approved;
 
             await this.dbContext.SaveChangesAsync();
         }

@@ -13,6 +13,8 @@
 
         Task<AllCarsFilteredAndPagedServiceModel> AllAsync(AllCarsQueryModel queryModel);
 
+        Task<IEnumerable<CarAdminAllViewModel>> AllCarsForAdminAsync();
+
         Task<IEnumerable<AllSellerCars>> AllBySellerIdAsync(string sellerId);
 
         Task<bool> ExistsByIdAsync(string carId);
@@ -28,5 +30,7 @@
         Task<CarPreDeleteDetailsViewModel> GetCarForDeleteByIdAsync(string carId);
 
         Task DeleteCarByIdAsync(string carId);
+
+        Task ChangeVisibilityAsync(string carId);
     }
 }

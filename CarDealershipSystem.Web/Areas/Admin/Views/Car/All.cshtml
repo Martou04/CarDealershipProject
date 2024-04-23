@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CarAdminAllViewModel>
+
+@{
+    this.ViewData["Title"] = "Posts Administration";
+}
+
+<h2 class="heading-margin text-center">@this.ViewData["Title"]</h2>
+<div class="col-md-10 offset-md-1">
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Make</th>
+            <th scope="col">Model</th>
+            <th scope="col">Year</th>
+            <th scope="col">Price</th>
+            <th scope="col">Approved</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Id</td>
+                <td>@car.Make</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.Price</td>
+                <td>@(car.Approved ? "Yes" : "No")</td>
+                <td>
+                    <a asp-area="" asp-controller="Car" asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger float-end mx-1">Delete</a>
+                    <a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@car.Id" class="btn btn-dark float-end mx-1">Edit</a>
+                    <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@car.Id" class="btn btn-secondary float-end mx-1">View</a>
+                        <a asp-area="Admin" asp-controller="Car" asp-action="ChangeVisibility" asp-route-carId="@car.Id" class="btn btn-warning float-end mx-1">@(car.Approved ? "Hide" : "Show")</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

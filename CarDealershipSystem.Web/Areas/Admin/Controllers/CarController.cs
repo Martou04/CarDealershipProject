@@ -1,6 +1,7 @@
 ﻿using CarDealershipSystem.Services.Data.Interfaces;
 using CarDealershipSystem.Web.Areas.Admin.ViewModels.Car;
 using CarDealershipSystem.Web.Infrastructure.Extensions;
+using CarDealershipSystem.Web.ViewModels.Car;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealershipSystem.Web.Areas.Admin.Controllers
@@ -26,6 +27,20 @@ namespace CarDealershipSystem.Web.Areas.Admin.Controllers
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            IEnumerable<CarAdminAllViewModel> allCars = await this.carService.AllCarsForAdminAsync();
+
+            return this.View(allCars);
+        }
+
+        public async Task<IActionResult> ChangeVisibility(string carId)
+        {
+            await this.carService.ChangeVisibilityAsync(carId);
+            return this.RedirectToAction("All", "Car");
         }
     }
 }
