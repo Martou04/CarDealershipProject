@@ -43,25 +43,25 @@
             public const int ImageUrlMaxLength = 2048;
 
             public const string PriceMinValue = "0";
-            public const string PriceMaxValue = "1000000000";
+            public const string PriceMaxValue = "100000000";
         }
 
         public static class FuelType
         {
             public const int NameMinLength = 2;
-            public const int NameMaxLength = 20;
+            public const int NameMaxLength = 30;
         }
 
         public static class TransmissionType
         {
             public const int NameMinLength = 2;
-            public const int NameMaxLength = 20;
+            public const int NameMaxLength = 30;
         }
 
         public static class Extra
         {
             public const int NameMinLength = 2;
-            public const int NameMaxLength = 20;
+            public const int NameMaxLength = 30;
         }
 
         public static class User 

@@ -60,7 +60,7 @@
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new car category!");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new fuel type!");
 
                 return this.View(formModel);
             }

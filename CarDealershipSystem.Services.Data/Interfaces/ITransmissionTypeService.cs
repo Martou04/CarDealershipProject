@@ -8,5 +8,9 @@
         Task<bool> ExistsByIdAsync(int Id);
 
         Task<IEnumerable<TransmissionTypeAllViewModel>> AllTransmissionTypes();
+
+        Task<bool> ExistsByNameAsync(string Name);
+
+        Task AddTransmissionTypeAsync(TransmissionTypeFormModel formModel);
     }
 }

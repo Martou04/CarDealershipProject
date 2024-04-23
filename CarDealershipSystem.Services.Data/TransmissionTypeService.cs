@@ -7,6 +7,7 @@ namespace CarDealershipSystem.Services.Data
     using Interfaces;
     using Web.Data;
     using Web.ViewModels.TransmissionType;
+    using CarDealershipSystem.Data.Models;
 
     public class TransmissionTypeService : ITransmissionTypeService
     {
@@ -54,5 +55,24 @@ namespace CarDealershipSystem.Services.Data
             return allTransmissionTypes;
         }
 
+        public async Task<bool> ExistsByNameAsync(string Name)
+        {
+            bool result = await this.dbContext
+                .TransmissionTypes
+                .AnyAsync(tt => tt.Name == Name);
+
+            return result;
+        }
+
+        public async Task AddTransmissionTypeAsync(TransmissionTypeFormModel formModel)
+        {
+            TransmissionType transmissionType = new TransmissionType()
+            {
+                Name = formModel.Name,
+            };
+
+            await this.dbContext.TransmissionTypes.AddAsync(transmissionType);
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }
