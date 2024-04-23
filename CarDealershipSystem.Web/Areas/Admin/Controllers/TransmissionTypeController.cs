@@ -1,5 +1,4 @@
-﻿
-namespace CarDealershipSystem.Web.Areas.Admin.Controllers
+﻿namespace CarDealershipSystem.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 
@@ -68,6 +67,55 @@ namespace CarDealershipSystem.Web.Areas.Admin.Controllers
             }
         }
 
-        
+        [HttpGet]
+        [Route("TransmissionType/Edit")]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            bool isTransissionTypeExists =
+                await this.transmissionTypeService.ExistsByIdAsync(Id);
+            if (!isTransissionTypeExists)
+            {
+                this.TempData[ErrorMessage] = "Тhe Transmission Type you selected does not exist!";
+
+                return this.RedirectToAction("All", "TransmissionType");
+            }
+
+            TransmissionTypeFormModel transmissionTypeFormModel = 
+                await this.transmissionTypeService.GetTransmissionTypeForEditByIdAsync(Id);
+
+            return this.View(transmissionTypeFormModel);
+        }
+
+        [HttpPost]
+        [Route("TransmissionType/Edit")]
+        public async Task<IActionResult> Edit(int Id,  TransmissionTypeFormModel formModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return this.View(formModel);
+            }
+
+            bool isTransissionTypeExists =
+                await this.transmissionTypeService.ExistsByIdAsync(Id);
+            if (!isTransissionTypeExists)
+            {
+                this.TempData[ErrorMessage] = "Тhe Transmission Type you selected does not exist!";
+
+                return this.RedirectToAction("All", "TransmissionType");
+            }
+
+            try
+            {
+                await this.transmissionTypeService.EditAsync(Id, formModel);
+
+                this.TempData[SuccessMessage] = "Transmission type was edited successfully!";
+                return this.RedirectToAction("All", "TransmissionType");
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to edit the transmission type.";
+                return this.View(formModel);
+            }
+        }
     }
 }

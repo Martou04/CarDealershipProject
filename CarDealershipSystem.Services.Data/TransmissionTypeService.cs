@@ -74,5 +74,30 @@ namespace CarDealershipSystem.Services.Data
             await this.dbContext.TransmissionTypes.AddAsync(transmissionType);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<TransmissionTypeFormModel> GetTransmissionTypeForEditByIdAsync(int Id)
+        {
+            TransmissionType transmissionType = await this.dbContext
+                .TransmissionTypes
+                .FirstAsync(tt => tt.Id == Id);
+
+            TransmissionTypeFormModel formModel = new TransmissionTypeFormModel()
+            {
+                Name = transmissionType.Name,
+            };
+
+            return formModel;
+        }
+
+        public async Task EditAsync(int Id, TransmissionTypeFormModel model)
+        {
+            TransmissionType transmissionType = await this.dbContext
+                .TransmissionTypes
+                .FirstAsync (tt => tt.Id == Id);
+
+            transmissionType.Name = model.Name;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

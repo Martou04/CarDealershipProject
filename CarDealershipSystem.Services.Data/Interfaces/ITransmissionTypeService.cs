@@ -12,5 +12,9 @@
         Task<bool> ExistsByNameAsync(string Name);
 
         Task AddTransmissionTypeAsync(TransmissionTypeFormModel formModel);
+
+        Task<TransmissionTypeFormModel> GetTransmissionTypeForEditByIdAsync(int Id);
+
+        Task EditAsync(int Id, TransmissionTypeFormModel model);
     }
 }
