@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TransmissionTypeAllViewModel>
+
+@{
+    ViewData["Title"] = "All Transmission Types";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Name</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TransmissionTypeAllViewModel transmissionType in Model)
+        {
+            <tr>
+                <td><label>@transmissionType.Name</label></td>
+                <td><a asp-action="Edit" asp-route-id="@transmissionType.Id" class="btn btn-primary">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+    <div class="align-content-center">
+        <a asp-action="Add" class="btn btn-success">Add</a>
+    </div>
+</table>

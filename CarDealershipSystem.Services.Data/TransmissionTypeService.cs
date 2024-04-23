@@ -17,6 +17,7 @@ namespace CarDealershipSystem.Services.Data
             this.dbContext = dbContext;
         }
 
+
         public async Task<IEnumerable<CarSelectTransmissionTypeFormModel>> AllTransmissionTypesAsync()
         {
             IEnumerable<CarSelectTransmissionTypeFormModel> allTransmissionTypes = await this.dbContext
@@ -39,5 +40,19 @@ namespace CarDealershipSystem.Services.Data
 
             return result;
         }
+        public async Task<IEnumerable<TransmissionTypeAllViewModel>> AllTransmissionTypes()
+        {
+            IEnumerable<TransmissionTypeAllViewModel> allTransmissionTypes = await this.dbContext
+                .TransmissionTypes
+                .Select(tt => new TransmissionTypeAllViewModel 
+                {
+                    Id = tt.Id,
+                    Name = tt.Name
+                })
+                .ToArrayAsync();
+
+            return allTransmissionTypes;
+        }
+
     }
 }
