@@ -8,6 +8,7 @@
         public static ApplicationUser User;
         public static Seller Seller;
         public static Car Car;
+        public static Category Category;
 
         public static void SeedDatabase(CarDealershipDbContext dbContext)
         {
@@ -74,7 +75,7 @@
             //Add 4 more cars
             for (int i = 0; i < 4; i++)
             {
-                var car = new Car()
+                Car = new Car()
                 {
                     Make = "ExampleMake",
                     Model = $"ExampleModel{i + 1}",
@@ -91,7 +92,7 @@
                     IsActive = true,
                     Approved = true
                 };
-                dbContext.Cars.Add(car);
+                dbContext.Cars.Add(Car);
             }
 
 
