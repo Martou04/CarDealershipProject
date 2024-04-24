@@ -6,6 +6,7 @@
 
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
+<a asp-action="Add" class="btn btn-success">Add</a>
 @foreach (var group in Model.GroupBy(extra => extra.TypeName))
 {
     <h3>@group.Key</h3>
@@ -27,6 +28,4 @@
         </tbody>
     </table>
 }
-<div class="align-content-center">
-    <a asp-action="Add" class="btn btn-success">Add</a>
-</div>
+

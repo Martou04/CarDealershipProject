@@ -28,6 +28,12 @@
         </div>
         @if((isUserSeller && isSellerOwnerOfCar) || this.User.IsAdmin())
         {
+            if(this.User.IsAdmin())
+            {
+                <div class="col-auto">
+                    <a asp-area="Admin" asp-controller="Car" asp-action="ChangeVisibility" asp-route-carId="@Model.Id" class="btn btn-warning float-end mx-1">@(Model.Approved ? "Hide" : "Show")</a>
+                </div>
+            }
             <div class="col-auto">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
             </div>

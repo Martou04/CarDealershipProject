@@ -216,6 +216,7 @@
                 Kilometers = car.Kilometers,
                 Horsepower = car.Horsepower,
                 Price = car.Price,
+                Approved = car.Approved,
                 CreatedOn = car.CreatedOn,
                 ImageUrl = car.ImageUrl,
                 Category = car.Category.Name,

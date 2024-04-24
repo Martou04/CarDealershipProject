@@ -16,6 +16,8 @@ namespace CarDealershipSystem.Web.ViewModels.Car
 
         public int Horsepower { get; set; }
 
+        public bool Approved { get; set; } 
+
         public string Category { get; set; } = null!;
 
         [Display(Name = "Fuel Type")]
