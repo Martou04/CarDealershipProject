@@ -1,26 +1,32 @@
-﻿
-namespace CarDealershipSystem.Web.Controllers
+﻿namespace CarDealershipSystem.Web.Controllers
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.Extensions.Caching.Memory;
+
+    using Griesoft.AspNetCore.ReCaptcha;
 
     using CarDealershipSystem.Data.Models;
     using ViewModels.User;
 
+    using static Common.GeneralApplicationConstants;
     using static Common.NotificationMessagesConstants;
-    using Griesoft.AspNetCore.ReCaptcha;
 
     public class UserController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMemoryCache memoryCache;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
-                              UserManager<ApplicationUser> userManager)
+                              UserManager<ApplicationUser> userManager,
+                              IMemoryCache memoryCache)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -61,6 +67,7 @@ namespace CarDealershipSystem.Web.Controllers
             }
 
             await this.signInManager.SignInAsync(user, false);
+            this.memoryCache.Remove(UsersCacheKey);
 
             return this.RedirectToAction("Index", "Home");
         }

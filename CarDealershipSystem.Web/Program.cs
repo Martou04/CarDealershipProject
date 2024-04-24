@@ -7,12 +7,12 @@ namespace CarDealershipSystem.Web
     using Microsoft.AspNetCore.Mvc;
 
     using Data;
-    using CarDealershipSystem.Data.Models;
+    using Services.Mapping;
+    using ViewModels.Home;
     using Infrastructure.Extensions;
     using Services.Data.Interfaces;
     using Infrastructure.ModelBinders;
-    using Services.Mapping;
-    using ViewModels.Home;
+    using CarDealershipSystem.Data.Models;
     using static Common.GeneralApplicationConstants;
 
     public class Program
@@ -49,6 +49,8 @@ namespace CarDealershipSystem.Web
             builder.Services.AddApplicationServices(typeof(ICarService));
 
             builder.Services.AddRecaptchaService();
+
+            builder.Services.AddMemoryCache();
 
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
