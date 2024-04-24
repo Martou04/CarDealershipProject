@@ -132,5 +132,42 @@
             Assert.IsTrue(result);
         }
 
+        [Test]
+        public async Task GetCarForDeleteByIdAsyncReturnsCarPreDeleteDetailsViewModel()
+        {
+            var existingCarId = dbContext.Cars.First(c => c.IsActive).Id.ToString();
+            var expectedCar = dbContext.Cars.FirstOrDefault(c => c.Id == Guid.Parse(existingCarId));
+
+            var result = await carService.GetCarForDeleteByIdAsync(existingCarId);
+
+            Assert.AreEqual(expectedCar.Make, result.Make);
+            Assert.AreEqual(expectedCar.Model, result.Model);
+            Assert.AreEqual(expectedCar.ImageUrl, result.ImageUrl);
+            Assert.AreEqual(expectedCar.Year, result.Year);
+            Assert.AreEqual(expectedCar.Price, result.Price);
+        }
+
+        [Test]
+        public async Task DeleteCarByIdAsyncShouldChangeIsActive()
+        {
+            var existingCarId = dbContext.Cars.First(c => c.IsActive).Id.ToString();
+            var expectedCar = dbContext.Cars.FirstOrDefault(c => c.Id == Guid.Parse(existingCarId));
+
+            await this.carService.DeleteCarByIdAsync(existingCarId);
+
+            Assert.AreEqual(expectedCar.IsActive, false);
+        }
+
+        [Test]
+        public async Task ChangeVisibilityAsync()
+        {
+            var existingCarId = dbContext.Cars.First(c => c.IsActive).Id.ToString();
+            var expectedCar = dbContext.Cars.FirstOrDefault(c => c.Id == Guid.Parse(existingCarId));
+            
+            bool visibility = expectedCar.Approved;
+            await this.carService.ChangeVisibilityAsync(existingCarId);
+
+            Assert.AreNotEqual(expectedCar.Approved, visibility);
+        }
     }
 }
