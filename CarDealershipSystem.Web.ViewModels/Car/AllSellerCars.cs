@@ -14,6 +14,8 @@
 
         public decimal Price { get; set; }
 
+        public bool Approved { get; set; }
+
         public DateTime CreatedOn { get; set; }
     }
 }

@@ -40,6 +40,17 @@
             <div class="col-auto">
                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
             </div>
+            <div class="col-auto">
+                <text>Approved: </text>
+                @if(Model.Approved)
+                {
+                    <label class="text-center">✔</label>
+                }
+                else
+                {
+                    <label class="text-center">❌</label>
+                }
+            </div>
         }
     </div>
     <hr />

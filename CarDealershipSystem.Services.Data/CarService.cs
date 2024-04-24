@@ -185,6 +185,7 @@
                    ImageUrl = c.ImageUrl,
                    Year = c.Year,
                    Price = c.Price,
+                   Approved = c.Approved,
                    CreatedOn = c.CreatedOn
                 })
                 .ToArrayAsync();
