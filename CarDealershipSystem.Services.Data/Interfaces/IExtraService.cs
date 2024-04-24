@@ -8,7 +8,7 @@
 
         Task<IEnumerable<CarExtrasViewModel>> AllExtraTypesAsync();
 
-        Task<bool> ExtraExistsAsync(int typeId, string name);
+        Task<bool> ExtraExistsByNameAndTypeAsync(int typeId, string name);
 
         Task AddExtraAsync(ExtraFormModel formModel);
 

@@ -45,7 +45,7 @@
             return allExtraTypes;
         }
 
-        public async Task<bool> ExtraExistsAsync(int typeId, string name)
+        public async Task<bool> ExtraExistsByNameAndTypeAsync(int typeId, string name)
         {
             bool result = await this.dbContext
                 .Extra

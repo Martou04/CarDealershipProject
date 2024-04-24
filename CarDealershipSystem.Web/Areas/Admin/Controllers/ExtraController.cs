@@ -48,7 +48,7 @@
             }
 
             bool isExtraExists = 
-                await this.extraService.ExtraExistsAsync(formModel.ExtraTypeId, formModel.Name);
+                await this.extraService.ExtraExistsByNameAndTypeAsync(formModel.ExtraTypeId, formModel.Name);
             if(isExtraExists)
             {
                 this.TempData[ErrorMessage] = "The extra you are trying to add already exists!";

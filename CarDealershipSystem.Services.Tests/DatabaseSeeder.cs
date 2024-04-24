@@ -9,7 +9,7 @@
         public static Seller Seller;
         public static Car Car;
         public static Category Category;
-
+        public static Extra Extra;
         public static void SeedDatabase(CarDealershipDbContext dbContext)
         {
             SellerUser = new ApplicationUser()
@@ -95,6 +95,19 @@
                 dbContext.Cars.Add(Car);
             }
 
+            Extra = new Extra()
+            {
+                Name = "ABS",
+                TypeId = 2
+            };
+            dbContext.Extra.Add(Extra);
+
+            Extra = new Extra()
+            {
+                Name = "Leather Seats",
+                TypeId = 1
+            };
+            dbContext.Extra.Add(Extra);
 
             dbContext.SaveChanges();
         }
