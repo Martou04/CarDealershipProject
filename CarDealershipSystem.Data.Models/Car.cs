@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.Car;
-    using static System.Net.Mime.MediaTypeNames;
 
     public class Car
     {

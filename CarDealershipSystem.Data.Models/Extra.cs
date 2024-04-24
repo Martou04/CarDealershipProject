@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.Extra;
+
     public class Extra
     {
         public Extra()

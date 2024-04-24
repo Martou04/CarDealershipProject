@@ -1,9 +1,10 @@
 ﻿namespace CarDealershipSystem.Services.Data
 {
-    using Interfaces;
     using Microsoft.EntityFrameworkCore;
-    using Models.Statistics;
+
+    using Interfaces;
     using Web.Data;
+    using Models.Statistics;
 
     internal class StatisticsService : IStatisticsService
     {

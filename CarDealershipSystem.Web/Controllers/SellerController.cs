@@ -3,9 +3,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Infrastructure.Extensions;
     using ViewModels.Seller;
-    using CarDealershipSystem.Services.Data.Interfaces;
+    using Infrastructure.Extensions;
+    using Services.Data.Interfaces;
 
     using static Common.NotificationMessagesConstants;
 

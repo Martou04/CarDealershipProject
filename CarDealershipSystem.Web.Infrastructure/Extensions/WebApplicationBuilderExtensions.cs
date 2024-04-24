@@ -1,11 +1,13 @@
 ﻿namespace CarDealershipSystem.Web.Infrastructure.Extensions
 {
-    using System.Reflection;
-    using CarDealershipSystem.Data.Models;
-    using CarDealershipSystem.Web.Infrastructure.Middlewares;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using System.Reflection;
+
+    using Middlewares;
+    using CarDealershipSystem.Data.Models;
 
     using static Common.GeneralApplicationConstants;
 

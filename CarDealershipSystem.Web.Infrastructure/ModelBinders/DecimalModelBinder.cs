@@ -1,9 +1,9 @@
 ﻿namespace CarDealershipSystem.Web.Infrastructure.ModelBinders
 {
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+    
     using System.Globalization;
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     public class DecimalModelBinder : IModelBinder
     {

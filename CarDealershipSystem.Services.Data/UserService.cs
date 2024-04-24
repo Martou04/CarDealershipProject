@@ -1,14 +1,13 @@
 ﻿namespace CarDealershipSystem.Services.Data
 {
-    using System.Collections.Generic;
-
     using Microsoft.EntityFrameworkCore;
+
+    using System.Collections.Generic;
     
     using Interfaces;
     using Web.Data;
     using Web.ViewModels.User;
     using CarDealershipSystem.Data.Models;
-    using CarDealershipSystem.Services.Mapping;
 
     public class UserService : IUserService
     {

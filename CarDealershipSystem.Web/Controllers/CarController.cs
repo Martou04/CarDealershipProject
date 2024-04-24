@@ -1,13 +1,13 @@
 ﻿namespace CarDealershipSystem.Web.Controllers
 {
-    using CarDealershipSystem.Data.Models;
-    using CarDealershipSystem.Services.Data.Interfaces;
-    using CarDealershipSystem.Services.Data.Models.Car;
-    using CarDealershipSystem.Web.Infrastructure.Extensions;
-    using CarDealershipSystem.Web.ViewModels.Car;
-    using CarDealershipSystem.Web.ViewModels.CarExtra;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
+    using Web.ViewModels.Car;
+    using Web.Infrastructure.Extensions;
+    using Services.Data.Interfaces;
+    using Services.Data.Models.Car;
+
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
 

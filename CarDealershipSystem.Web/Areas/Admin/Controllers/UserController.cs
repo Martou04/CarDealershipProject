@@ -7,6 +7,7 @@
     using Services.Data.Interfaces;
 
     using static Common.GeneralApplicationConstants;
+
     public class UserController : BaseAdminController
     {
         private readonly IUserService userService;

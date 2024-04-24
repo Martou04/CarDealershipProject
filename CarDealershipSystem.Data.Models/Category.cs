@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Common.EntityValidationConstants.Category;
+
     public class Category
     {
         public Category()

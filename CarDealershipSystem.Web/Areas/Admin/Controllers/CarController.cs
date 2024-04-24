@@ -1,11 +1,12 @@
-﻿using CarDealershipSystem.Services.Data.Interfaces;
-using CarDealershipSystem.Web.Areas.Admin.ViewModels.Car;
-using CarDealershipSystem.Web.Infrastructure.Extensions;
-using CarDealershipSystem.Web.ViewModels.Car;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CarDealershipSystem.Web.Areas.Admin.Controllers
+﻿namespace CarDealershipSystem.Web.Areas.Admin.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
+    using Web.ViewModels.Car;
+    using Web.Infrastructure.Extensions;
+    using Web.Areas.Admin.ViewModels.Car;
+    using Services.Data.Interfaces;
+
     public class CarController : BaseAdminController
     {
         private readonly ISellerService sellerService;

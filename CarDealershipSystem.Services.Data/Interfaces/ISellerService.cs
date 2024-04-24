@@ -1,5 +1,4 @@
-﻿
-namespace CarDealershipSystem.Services.Data.Interfaces
+﻿namespace CarDealershipSystem.Services.Data.Interfaces
 {
     using Web.ViewModels.Seller;
 

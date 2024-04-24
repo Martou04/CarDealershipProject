@@ -1,11 +1,11 @@
-﻿using CarDealershipSystem.Services.Data.Interfaces;
-
-namespace CarDealershipSystem.Services.Data
+﻿namespace CarDealershipSystem.Services.Data
 {
-    using CarDealershipSystem.Data.Models;
-    using CarDealershipSystem.Web.ViewModels.Seller;
     using Microsoft.EntityFrameworkCore;
+
+    using Interfaces;
     using Web.Data;
+    using Web.ViewModels.Seller;
+    using CarDealershipSystem.Data.Models;
 
     public class SellerService : ISellerService
     {

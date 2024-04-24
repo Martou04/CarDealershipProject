@@ -1,16 +1,11 @@
-﻿using CarDealershipSystem.Data.Models;
-using CarDealershipSystem.Services.Data.Interfaces;
-using CarDealershipSystem.Web.Data;
-using CarDealershipSystem.Web.ViewModels.CarExtra;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarDealershipSystem.Services.Data
+﻿namespace CarDealershipSystem.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+
+    using Interfaces;
+    using Web.Data;
+    using Web.ViewModels.CarExtra;
+    using CarDealershipSystem.Data.Models;
     public class ExtraService : IExtraService
     {
         private readonly CarDealershipDbContext dbContext;

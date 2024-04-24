@@ -1,9 +1,12 @@
 ﻿namespace CarDealershipSystem.Web.Infrastructure.Middlewares
 {
-    using CarDealershipSystem.Web.Infrastructure.Extensions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Caching.Memory;
+
     using System.Collections.Concurrent;
+
+    using Extensions;
+
     using static Common.GeneralApplicationConstants;
 
     public class OnlineUsersMiddleware

@@ -1,18 +1,20 @@
 ﻿namespace CarDealershipSystem.Services.Data
 {
-    using Web.ViewModels.Home;
-    using Web.Data;
-    using Interfaces;
     using Microsoft.EntityFrameworkCore;
-    using CarDealershipSystem.Web.ViewModels.Car;
-    using CarDealershipSystem.Data.Models;
-    using System.Collections.Generic;
-    using CarDealershipSystem.Services.Data.Models.Car;
-    using CarDealershipSystem.Web.ViewModels.Car.Enums;
+    
     using System.Text.RegularExpressions;
+    using System.Collections.Generic;
+
+    using Interfaces;
+    using Web.Data;
+    using Web.ViewModels.Home;
+    using Web.ViewModels.Car;
     using Web.ViewModels.Seller;
-    using CarDealershipSystem.Services.Mapping;
-    using AutoMapper;
+    using Web.ViewModels.Car.Enums;
+    using Services.Mapping;
+    using Services.Data.Models.Car;
+    using CarDealershipSystem.Data.Models;
+
 
     public class CarService : ICarService
     {

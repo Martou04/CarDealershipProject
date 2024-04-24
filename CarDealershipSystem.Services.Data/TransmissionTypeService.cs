@@ -1,6 +1,4 @@
-﻿
-
-namespace CarDealershipSystem.Services.Data
+﻿namespace CarDealershipSystem.Services.Data
 {
     using Microsoft.EntityFrameworkCore;
 

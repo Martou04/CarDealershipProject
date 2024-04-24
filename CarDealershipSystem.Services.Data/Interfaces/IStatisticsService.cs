@@ -1,7 +1,7 @@
-﻿using CarDealershipSystem.Services.Data.Models.Statistics;
-
-namespace CarDealershipSystem.Services.Data.Interfaces
+﻿namespace CarDealershipSystem.Services.Data.Interfaces
 {
+    using Models.Statistics;
+
     public interface IStatisticsService
     {
         public Task<StatisticsServiceModel> GetStatisticsAsync();

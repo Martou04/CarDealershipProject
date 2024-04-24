@@ -3,9 +3,10 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    
+    using System.Reflection;
 
     using CarDealershipSystem.Data.Models;
-    using System.Reflection;
 
     public class CarDealershipDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {

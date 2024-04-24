@@ -4,6 +4,7 @@
 
     using Services.Data.Interfaces;
     using Web.ViewModels.FuelType;
+
     using static Common.NotificationMessagesConstants;
 
     public class FuelTypeController : BaseAdminController

@@ -1,7 +1,7 @@
-﻿
-namespace CarDealershipSystem.Services.Data.Interfaces
+﻿namespace CarDealershipSystem.Services.Data.Interfaces
 {
     using Web.ViewModels.User;
+
     public interface IUserService
     {
         Task<string> GetFullNameByEmailAsync(string email);

@@ -1,9 +1,10 @@
 ﻿namespace CarDealershipSystem.Web.Areas.Admin.Controllers
 {
-    using CarDealershipSystem.Services.Data.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 
     using Web.ViewModels.Category;
+    using Services.Data.Interfaces;
+
     using static Common.NotificationMessagesConstants;
 
     public class CategoryController : BaseAdminController

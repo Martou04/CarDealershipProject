@@ -1,10 +1,10 @@
-﻿
-namespace CarDealershipSystem.Data.Configurations
+﻿namespace CarDealershipSystem.Data.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using Models;
+
     public class ExtraEntityConfiguration : IEntityTypeConfiguration<Extra>
     {
         public void Configure(EntityTypeBuilder<Extra> builder)

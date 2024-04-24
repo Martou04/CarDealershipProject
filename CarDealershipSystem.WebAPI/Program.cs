@@ -1,9 +1,11 @@
 namespace CarDealershipSystem.WebAPI
 {
-    using CarDealershipSystem.Web.Data;
     using Microsoft.EntityFrameworkCore;
-    using Services.Data.Interfaces;
+
+    using Web.Data;
     using Web.Infrastructure.Extensions;
+    using Services.Data.Interfaces;
+
     public class Program
     {
         public static void Main(string[] args)

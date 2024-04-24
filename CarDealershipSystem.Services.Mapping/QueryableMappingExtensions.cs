@@ -1,7 +1,9 @@
 ﻿namespace CarDealershipSystem.Services.Mapping
 {
-    using System.Linq.Expressions;
     using AutoMapper.QueryableExtensions;
+
+    using System.Linq.Expressions;
+
     public static class QueryableMappingExtensions
     {
         public static IQueryable<TDestination> To<TDestination>(
