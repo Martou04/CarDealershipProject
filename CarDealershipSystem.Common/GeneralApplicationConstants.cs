@@ -10,5 +10,8 @@
         public const string AdminAreaName = "Admin";
         public const string AdminRoleName = "Admin";
         public const string DevelopmentAdminEmail = "admin@cardealership.bg";
+
+        public const string OnlineUsersCookieName = "IsOnline";
+        public const int LastActivityBeforeOffLineMinutes = 10;
     }
 }

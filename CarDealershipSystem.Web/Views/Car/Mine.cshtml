@@ -20,7 +20,7 @@
             <h6 class="card-price mt-3">€@car.Price.ToString("### ### ###.##")</h6>
             <img src="@car.ImageUrl" class="card-img-top" alt="@car.Make @car.Model @car.Year">
             <div class="card-body d-flex flex-column">
-                <a class="text-decoration-none" asp-action="" asp-route-id="@car.Id"><h5 class="card-title text-black text-center">@car.Year @car.Make @car.Model</h5></a>
+                <a class="text-decoration-none" asp-action="Details" asp-route-id="@car.Id"><h5 class="card-title text-black text-center">@car.Year @car.Make @car.Model</h5></a>
                 <hr class="mt-1 mb-2" />
                 <div class="row mt-auto">
                     <div class="col-4"><a asp-area="" asp-action="Details" asp-route-id="@car.Id" class="btn btn-dark">View</a></div>

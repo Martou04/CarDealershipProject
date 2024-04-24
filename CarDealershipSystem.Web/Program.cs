@@ -89,6 +89,8 @@ namespace CarDealershipSystem.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.EnableOnlineUsersCheck();
+
             app.SeedAdmin(DevelopmentAdminEmail);
 
             app.UseEndpoints(config =>

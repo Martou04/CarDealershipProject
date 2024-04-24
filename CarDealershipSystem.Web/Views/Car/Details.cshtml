@@ -4,18 +4,18 @@
 @{
     this.ViewData["Title"] = $"{Model.Make} {Model.Model}";
     int counter = 0;
-    bool isUserSeller = await this.SellerService.SellerExistsByUserIdAsync(this.User.GetId());
-    bool isSellerOwnerOfCar = await this.SellerService.HasCarWithIdAsync(this.User.GetId(), Model.Id);
+    bool isUserSeller = await this.SellerService.SellerExistsByUserIdAsync(this.User.GetId()!);
+    bool isSellerOwnerOfCar = await this.SellerService.HasCarWithIdAsync(this.User.GetId()!, Model.Id);
 }
 
 <div class="col-10 offset-1">
     <div class="row heading-margin: 1">
         <div class="container">
             <div class="d-flex justify-content-start text-muted" style="float: left">
-                <h6>Published on: @Model.CreatedOn</h6>
+                <h6>Published on: @Model.CreatedOn.ToShortDateString()</h6>
             </div>
             <div class="d-flex justify-content-end" style="float: right">
-                <text class="fs-3 text-black">€@Model.Price.ToString("### ### ###")</text>
+                <text class="post-price fs-3 text-black">€@Model.Price.ToString("### ### ###")</text>
             </div>
         </div>
     </div>

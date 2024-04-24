@@ -309,6 +309,7 @@
             car.CategoryId = formModel.CategoryId;
             car.FuelTypeId = formModel.FuelTypeId;
             car.TransmissionTypeId = formModel.TransmissionTypeId;
+            car.Approved = false;
 
             if (selectedExtrasIds.Any())
             {

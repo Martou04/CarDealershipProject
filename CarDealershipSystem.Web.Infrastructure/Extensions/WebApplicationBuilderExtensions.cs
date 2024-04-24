@@ -2,6 +2,7 @@
 {
     using System.Reflection;
     using CarDealershipSystem.Data.Models;
+    using CarDealershipSystem.Web.Infrastructure.Middlewares;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
@@ -68,6 +69,11 @@
             .GetResult();
 
             return app;
+        }
+
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<OnlineUsersMiddleware>();
         }
     }
 }
