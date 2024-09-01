@@ -43,7 +43,7 @@ A car dealership web application built on ASP.NET Core 6.0 MVC.
 ### **Registration page:** ###
 <img src="https://github.com/Martou04/CarDealershipRepoGallery/blob/main/Screenshot%20(4).png?raw=true">
 
-### ** Login page:** ###
+### **Login page:** ###
 <img src="https://github.com/Martou04/CarDealershipRepoGallery/blob/main/Screenshot%20(5).png?raw=true">
 
 ### **All posts page:** ###
